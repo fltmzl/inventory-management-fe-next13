@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
 import { api } from "@/utils/axios";
-import { TransactionOutBody } from "../components/Form/transactionOutBody";
+import { TransactionOutBody } from "@/types/transactionOutBody";
 
 type AddTransactionOutProps = {
   inventoryItems: Inventory[];

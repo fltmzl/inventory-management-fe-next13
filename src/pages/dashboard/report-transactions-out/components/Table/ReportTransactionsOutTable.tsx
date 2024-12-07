@@ -4,6 +4,7 @@ import FilterShowColumn from "@/shared/components/FilterShowColumn";
 import FooterTable from "@/shared/components/FooterTable";
 import ShowRows from "@/shared/components/ShowRows";
 import TableData from "@/shared/components/TableData";
+import { columns } from "@/tables/reportTransactionOut.table";
 import { api } from "@/utils/axios";
 import { ISODateToLocal } from "@/utils/dateTime";
 import { formatToRupiah } from "@/utils/formatToRupiah";
@@ -12,7 +13,6 @@ import { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
 import { useSWRConfig } from "swr";
-import { columns } from "./data";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "id",

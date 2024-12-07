@@ -20,7 +20,7 @@ import {
   Item,
   TransactionOutBody,
   TransactionOutInitialForm,
-} from "./transactionOutBody";
+} from "@/types/transactionOutBody";
 import { api } from "@/utils/axios";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 

@@ -23,7 +23,7 @@ import {
   Item,
   TransactionInBody,
   TransactionInInitialForm,
-} from "./transactionInBody";
+} from "@/types/transactionInBody";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 
 const initialForm: TransactionInInitialForm = {

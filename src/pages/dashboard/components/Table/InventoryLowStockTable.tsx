@@ -22,7 +22,7 @@ import FooterTable from "@/shared/components/FooterTable";
 import TableData from "@/shared/components/TableData";
 import { ISODateToLocal } from "@/utils/dateTime";
 import DeleteModal from "../../inventories/components/Table/DeleteModal";
-import { columns } from "./data";
+import { columns } from "@/tables/inventoryLowStock.table";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "id",
@@ -194,6 +194,7 @@ export default function InventoryLowStockTable({
         </div>
       </div>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [table]);
 
   const bottomContent = useMemo(() => {

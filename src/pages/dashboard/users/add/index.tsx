@@ -2,7 +2,7 @@ import React from "react";
 import MainLayout from "../../components/Layout/MainLayout";
 import UserForm from "../components/Form/UserForm";
 import { api } from "@/utils/axios";
-import { UserBody } from "../components/Form/userBody";
+import { UserBody } from "../../../../types/userBody";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { useSWRConfig } from "swr";

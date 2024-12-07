@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { api } from "@/utils/axios";
 import toast from "react-hot-toast";
 import useMutateState from "@/hooks/custom/useMutate";
+import { CategoryBody } from "@/types/categoryBody";
 
 type CategoryDetailProps = {
   id: string;

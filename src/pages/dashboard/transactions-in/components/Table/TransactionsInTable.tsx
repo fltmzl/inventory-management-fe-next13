@@ -1,22 +1,21 @@
-import { Button, Link, Input, useDisclosure } from "@nextui-org/react";
-import { useState, useMemo, useCallback } from "react";
-import { columns } from "./data";
-import { IoIosAdd } from "react-icons/io";
-import { FiSearch } from "react-icons/fi";
-import { api } from "@/utils/axios";
-import { useSWRConfig } from "swr";
-import toast from "react-hot-toast";
-import { useMediaQuery } from "@/hooks/custom/useMediaQuery";
 import useTable from "@/hooks/custom/useTable";
-import { ISODateToLocal } from "@/utils/dateTime";
-import { formatToRupiah } from "@/utils/formatToRupiah";
+import DeleteModal from "@/pages/dashboard/inventories/components/Table/DeleteModal";
 import DefaultActionCell from "@/shared/components/DefaultActionCell";
 import DefaultCell from "@/shared/components/DefaultCell";
-import ShowRows from "@/shared/components/ShowRows";
 import FilterShowColumn from "@/shared/components/FilterShowColumn";
 import FooterTable from "@/shared/components/FooterTable";
+import ShowRows from "@/shared/components/ShowRows";
 import TableData from "@/shared/components/TableData";
-import DeleteModal from "@/pages/dashboard/inventories/components/Table/DeleteModal";
+import { columns } from "@/tables/transactionIn.table";
+import { api } from "@/utils/axios";
+import { ISODateToLocal } from "@/utils/dateTime";
+import { formatToRupiah } from "@/utils/formatToRupiah";
+import { Button, Input, Link, useDisclosure } from "@nextui-org/react";
+import { useCallback, useMemo, useState } from "react";
+import toast from "react-hot-toast";
+import { FiSearch } from "react-icons/fi";
+import { IoIosAdd } from "react-icons/io";
+import { useSWRConfig } from "swr";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "id",

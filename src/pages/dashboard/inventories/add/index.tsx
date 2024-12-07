@@ -4,7 +4,7 @@ import InventoryForm from "../components/Form/InventoryForm";
 import { api } from "@/utils/axios";
 import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
-import { InventoryBody } from "../components/Form/inventoryBody";
+import { InventoryBody } from "../../../../types/inventoryBody";
 import useMutateState from "@/hooks/custom/useMutate";
 
 export default function AddInventoryPage() {

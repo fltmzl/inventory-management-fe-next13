@@ -3,7 +3,7 @@ import { api } from "@/utils/axios";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import InventoryForm from "../Form/InventoryForm";
-import { InventoryBody } from "../Form/inventoryBody";
+import { InventoryBody } from "../../../../../types/inventoryBody";
 import useMutateState from "@/hooks/custom/useMutate";
 
 export default function InventoryDetail({ id }: { id: string }) {

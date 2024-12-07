@@ -6,6 +6,7 @@ import { api } from "@/utils/axios";
 import toast from "react-hot-toast";
 import UnitForm from "../components/Form/UnitForm";
 import useMutateState from "@/hooks/custom/useMutate";
+import { CategoryBody } from "@/types/categoryBody";
 
 export default function AddUnitPage() {
   const { mutate } = useSWRConfig();

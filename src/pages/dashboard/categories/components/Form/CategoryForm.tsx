@@ -1,3 +1,4 @@
+import { CategoryBody } from "@/types/categoryBody";
 import { InputGroupType } from "@/typings/inputType";
 import { Button, Input, Link, Spinner } from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";
@@ -16,7 +17,12 @@ type CategoryFormProps = {
   isMutate: boolean;
 };
 
-export default function CategoryForm({ initialValues = initialForm, formType, onSubmit, isMutate }: CategoryFormProps) {
+export default function CategoryForm({
+  initialValues = initialForm,
+  formType,
+  onSubmit,
+  isMutate,
+}: CategoryFormProps) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues,
@@ -27,11 +33,15 @@ export default function CategoryForm({ initialValues = initialForm, formType, on
     onSubmit: onSubmit,
   });
 
-  const isInputError = (inputName: keyof FormikErrors<typeof initialValues>): boolean => {
+  const isInputError = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): boolean => {
     return Boolean(formik.errors[inputName] && formik.touched[inputName]);
   };
 
-  const getInputErrorMessage = (inputName: keyof FormikErrors<typeof initialValues>): string | undefined => {
+  const getInputErrorMessage = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): string | undefined => {
     return formik.errors[inputName];
   };
 
@@ -70,17 +80,29 @@ export default function CategoryForm({ initialValues = initialForm, formType, on
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               isInvalid={isInputError(input.name)}
-              errorMessage={isInputError(input.name) ? getInputErrorMessage(input.name) : ""}
+              errorMessage={
+                isInputError(input.name) ? getInputErrorMessage(input.name) : ""
+              }
             />
           ))}
         </div>
       </div>
 
       <div className="pt-10 flex justify-end items-center gap-3">
-        <Button as={Link} href="/dashboard/categories" variant="light" className="font-semibold">
+        <Button
+          as={Link}
+          href="/dashboard/categories"
+          variant="light"
+          className="font-semibold"
+        >
           Batal
         </Button>
-        <Button color="primary" type="submit" className="py-6 font-semibold" isDisabled={isMutate}>
+        <Button
+          color="primary"
+          type="submit"
+          className="py-6 font-semibold"
+          isDisabled={isMutate}
+        >
           {isMutate && <Spinner color="default" size="sm" />}
           {formType === "NEW" ? "Tambah Kategori" : "Edit Kategori"}
         </Button>

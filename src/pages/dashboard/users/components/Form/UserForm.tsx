@@ -9,7 +9,7 @@ import {
   SelectItem,
   Spinner,
 } from "@nextui-org/react";
-import { UserBody } from "./userBody";
+import { UserBody } from "@/types/userBody";
 
 const initialForm = {
   fullname: "",

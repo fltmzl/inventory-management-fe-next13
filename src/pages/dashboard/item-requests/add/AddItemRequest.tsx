@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
 import { api } from "@/utils/axios";
 import ItemRequestsForm from "../components/Form/ItemRequestsForm";
-import { ItemRequestsBody } from "../components/Form/itemRequestsBody";
+import { ItemRequestsBody } from "../../../../types/itemRequestsBody";
 import useMutateState from "@/hooks/custom/useMutate";
 
 type AddItemRequestsProps = {

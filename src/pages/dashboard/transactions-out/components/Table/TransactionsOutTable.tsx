@@ -1,6 +1,5 @@
 import { Button, Link, Input, useDisclosure } from "@nextui-org/react";
 import { useState, useMemo, useCallback } from "react";
-import { columns } from "./data";
 import { IoIosAdd } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
 import { api } from "@/utils/axios";
@@ -16,6 +15,7 @@ import TableData from "@/shared/components/TableData";
 import DeleteModal from "@/pages/dashboard/inventories/components/Table/DeleteModal";
 import DefaultActionCell from "@/shared/components/DefaultActionCell";
 import DefaultCell from "@/shared/components/DefaultCell";
+import { columns } from "@/tables/transactionOut.table";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "id",

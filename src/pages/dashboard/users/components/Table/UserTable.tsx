@@ -9,7 +9,6 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { IoIosAdd } from "react-icons/io";
-import { columns } from "./data";
 import { FiSearch } from "react-icons/fi";
 import { api } from "@/utils/axios";
 import { toast } from "react-hot-toast";
@@ -22,6 +21,7 @@ import FilterShowColumn from "@/shared/components/FilterShowColumn";
 import FooterTable from "@/shared/components/FooterTable";
 import DefaultCell from "@/shared/components/DefaultCell";
 import DefaultActionCell from "@/shared/components/DefaultActionCell";
+import { columns } from "@/tables/user.table";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   ADMIN: "success",

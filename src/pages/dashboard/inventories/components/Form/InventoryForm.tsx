@@ -10,8 +10,8 @@ import {
   Spinner,
 } from "@nextui-org/react";
 import { InputGroupType } from "@/typings/inputType";
-import { InventoryBody } from "./inventoryBody";
 import useSWR from "swr";
+import { InventoryBody } from "@/types/inventoryBody";
 
 const initialForm: InventoryBody = {
   id: "",

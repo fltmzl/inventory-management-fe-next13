@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import UserForm from "../Form/UserForm";
-import { UserBody } from "../Form/userBody";
+import { UserBody } from "../../../../../types/userBody";
 import { api } from "@/utils/axios";
 import { useRouter } from "next/router";
 import toast, { Toaster } from "react-hot-toast";

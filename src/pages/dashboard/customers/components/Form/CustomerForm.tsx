@@ -1,16 +1,8 @@
-import React from "react";
+import { CustomerBody } from "@/types/customerBody";
+import { InputGroupType } from "@/typings/inputType";
+import { Button, Input, Link, Spinner } from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  Button,
-  Input,
-  Link,
-  Select,
-  SelectItem,
-  Spinner,
-} from "@nextui-org/react";
-import { CustomerBody } from "./customerBody";
-import { InputGroupType } from "@/typings/inputType";
 
 const initialForm: CustomerBody = {
   id: "",

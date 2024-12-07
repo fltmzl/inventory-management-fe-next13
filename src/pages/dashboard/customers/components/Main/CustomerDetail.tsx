@@ -3,7 +3,7 @@ import CustomerForm from "../Form/CustomerForm";
 import { api } from "@/utils/axios";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
-import { CustomerBody } from "../Form/customerBody";
+import { CustomerBody } from "../../../../../types/customerBody";
 import useMutateState from "@/hooks/custom/useMutate";
 
 export default function CustomerDetail({ id }: { id: string }) {

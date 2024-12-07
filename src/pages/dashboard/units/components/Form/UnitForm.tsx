@@ -1,3 +1,4 @@
+import { UnitBody } from "@/types/unitBody";
 import { InputGroupType } from "@/typings/inputType";
 import { Button, Input, Link, Spinner } from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";

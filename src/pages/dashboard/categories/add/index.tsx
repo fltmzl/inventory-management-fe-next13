@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { api } from "@/utils/axios";
 import toast from "react-hot-toast";
 import useMutateState from "@/hooks/custom/useMutate";
+import { CategoryBody } from "@/types/categoryBody";
 
 export default function AddCategoryPage() {
   const { mutate } = useSWRConfig();

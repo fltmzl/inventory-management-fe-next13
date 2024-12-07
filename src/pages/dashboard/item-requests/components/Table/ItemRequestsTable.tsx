@@ -1,43 +1,20 @@
-import {
-  Pagination,
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
-  Dropdown,
-  DropdownTrigger,
-  Button,
-  DropdownMenu,
-  DropdownItem,
-  Link,
-  Input,
-  Chip,
-  useDisclosure,
-} from "@nextui-org/react";
-import { useState, useMemo, useCallback } from "react";
-import { columns } from "./data";
-import { MdOutlineEdit } from "react-icons/md";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { IoIosAdd } from "react-icons/io";
-import { IoChevronDownOutline } from "react-icons/io5";
-import { FiSearch } from "react-icons/fi";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { BiColumns } from "react-icons/bi";
-import { api } from "@/utils/axios";
-import { useSWRConfig } from "swr";
-import toast from "react-hot-toast";
-import { useMediaQuery } from "@/hooks/custom/useMediaQuery";
 import useTable from "@/hooks/custom/useTable";
-import { ISODateToLocal } from "@/utils/dateTime";
-import DefaultCell from "@/shared/components/DefaultCell";
+import DeleteModal from "@/pages/dashboard/inventories/components/Table/DeleteModal";
 import DefaultActionCell from "@/shared/components/DefaultActionCell";
-import ShowRows from "@/shared/components/ShowRows";
+import DefaultCell from "@/shared/components/DefaultCell";
 import FilterShowColumn from "@/shared/components/FilterShowColumn";
 import FooterTable from "@/shared/components/FooterTable";
-import DeleteModal from "@/pages/dashboard/inventories/components/Table/DeleteModal";
+import ShowRows from "@/shared/components/ShowRows";
 import TableData from "@/shared/components/TableData";
+import { columns } from "@/tables/itemRequest.table";
+import { api } from "@/utils/axios";
+import { ISODateToLocal } from "@/utils/dateTime";
+import { Button, Chip, Input, Link, useDisclosure } from "@nextui-org/react";
+import { useCallback, useMemo, useState } from "react";
+import toast from "react-hot-toast";
+import { FiSearch } from "react-icons/fi";
+import { IoIosAdd } from "react-icons/io";
+import { useSWRConfig } from "swr";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "id",

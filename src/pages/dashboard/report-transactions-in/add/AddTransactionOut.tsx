@@ -1,11 +1,11 @@
 import React from "react";
 import MainLayout from "../../components/Layout/MainLayout";
-import TransactionOutForm from "../components/Form/TransactionOutForm";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
 import { api } from "@/utils/axios";
-import { TransactionOutBody } from "../components/Form/transactionOutBody";
+import { TransactionOutBody } from "@/types/transactionOutBody";
+import TransactionInForm from "../components/Form/TransactionInForm";
 
 type AddTransactionOutProps = {
   inventoryItems: Inventory[];
@@ -53,7 +53,7 @@ export default function AddTransactionOut({
   return (
     <MainLayout title="Tambah Transaksi Barang Keluar">
       <div className="bg-background px-6 py-7 rounded-md">
-        <TransactionOutForm
+        <TransactionInForm
           formType="NEW"
           onSubmit={onSubmit}
           initialValueOptions={{

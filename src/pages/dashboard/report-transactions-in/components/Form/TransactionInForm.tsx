@@ -20,7 +20,7 @@ import {
   Item,
   TransactionOutBody,
   TransactionOutInitialForm,
-} from "./transactionOutBody";
+} from "@/types/transactionOutBody";
 import { api } from "@/utils/axios";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 
@@ -46,7 +46,7 @@ type TransactionOutFormProps = {
   onSubmit: (values: TransactionOutBody, items: ItemsProps[]) => Promise<void>;
 };
 
-export default function TransactionOutForm({
+export default function TransactionInForm({
   initialValues = initialForm,
   formType,
   initialValueOptions: {

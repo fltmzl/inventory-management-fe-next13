@@ -1,4 +1,4 @@
-type CategoryBody = {
+export type UnitBody = {
   code: string;
   name: string;
 };

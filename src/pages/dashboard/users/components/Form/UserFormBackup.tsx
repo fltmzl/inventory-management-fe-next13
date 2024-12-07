@@ -1,17 +1,8 @@
-import React, { InputHTMLAttributes, useState } from "react";
-import { Formik, FormikErrors, FormikProps, useFormik } from "formik";
-import * as Yup from "yup";
-import {
-  Button,
-  Input,
-  Link,
-  Select,
-  SelectItem,
-  Selection,
-} from "@nextui-org/react";
 import { api } from "@/utils/axios";
+import { Button, Input, Link, Select, SelectItem } from "@nextui-org/react";
+import { Formik, FormikErrors, FormikProps } from "formik";
 import { useRouter } from "next/router";
-import useSWR from "swr";
+import * as Yup from "yup";
 
 const initialForm = {
   fullname: "",

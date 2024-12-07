@@ -1,6 +1,5 @@
 import { Input } from "@nextui-org/react";
 import { useMemo, useCallback } from "react";
-import { columns } from "./data";
 import { FiSearch } from "react-icons/fi";
 import { api } from "@/utils/axios";
 import { useSWRConfig } from "swr";
@@ -14,6 +13,7 @@ import ShowRows from "@/shared/components/ShowRows";
 import FilterShowColumn from "@/shared/components/FilterShowColumn";
 import FooterTable from "@/shared/components/FooterTable";
 import TableData from "@/shared/components/TableData";
+import { columns } from "@/tables/reportTransactionIn.table";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "id",

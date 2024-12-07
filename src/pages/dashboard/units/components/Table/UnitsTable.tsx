@@ -1,6 +1,5 @@
 import { Button, Link, Input, useDisclosure } from "@nextui-org/react";
 import { useState, useMemo, useCallback } from "react";
-import { columns } from "./data";
 import { IoIosAdd } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
 import { api } from "@/utils/axios";
@@ -14,6 +13,7 @@ import FilterShowColumn from "@/shared/components/FilterShowColumn";
 import FooterTable from "@/shared/components/FooterTable";
 import TableData from "@/shared/components/TableData";
 import DeleteModal from "@/pages/dashboard/inventories/components/Table/DeleteModal";
+import { columns } from "@/tables/unit.table";
 
 const INITIAL_VISIBLE_COLUMNS = ["kode", "nama", "actions"];
 
@@ -75,6 +75,7 @@ export default function UnitsTable({ units }: UnitsTableProps) {
           return <DefaultCell value={cellValue as string} />;
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [onDeleteItem],
   );
 

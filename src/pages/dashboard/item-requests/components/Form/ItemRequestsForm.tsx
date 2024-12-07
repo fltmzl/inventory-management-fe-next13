@@ -20,7 +20,7 @@ import {
   Item,
   ItemRequestsBody,
   ItemRequestsInitialForm,
-} from "./itemRequestsBody";
+} from "@/types/itemRequestsBody";
 
 const initialForm: ItemRequestsInitialForm = {
   id: "",

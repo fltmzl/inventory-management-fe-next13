@@ -1,6 +1,5 @@
 import { Button, Link, Input, useDisclosure } from "@nextui-org/react";
 import { useState, useMemo, useCallback } from "react";
-import { columns } from "./data";
 import { IoIosAdd } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
 import { api } from "@/utils/axios";
@@ -14,6 +13,7 @@ import FilterShowColumn from "@/shared/components/FilterShowColumn";
 import FooterTable from "@/shared/components/FooterTable";
 import DeleteModal from "@/pages/dashboard/inventories/components/Table/DeleteModal";
 import TableData from "@/shared/components/TableData";
+import { columns } from "@/tables/category.table";
 
 const INITIAL_VISIBLE_COLUMNS = ["kode", "nama", "actions"];
 
