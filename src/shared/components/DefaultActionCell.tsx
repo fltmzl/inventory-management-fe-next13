@@ -10,6 +10,7 @@ import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdOutlineEdit } from "react-icons/md";
+import { useRouter } from "next/router";
 
 type Props = {
   id: string;
@@ -17,6 +18,9 @@ type Props = {
 };
 
 export default function DefaultActionCell({ id, onOpenDeleteDialog }: Props) {
+  const router = useRouter();
+  const pathname = router.pathname;
+
   return (
     <div className="relative flex justify-end items-center gap-2">
       <Dropdown>
@@ -33,7 +37,7 @@ export default function DefaultActionCell({ id, onOpenDeleteDialog }: Props) {
             }}
             startContent={<MdOutlineEdit />}
             as={Link}
-            href={`edit/${id}`}
+            href={`${pathname}/edit/${id}`}
             className="text-inherit"
           >
             Edit

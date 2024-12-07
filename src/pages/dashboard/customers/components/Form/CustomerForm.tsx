@@ -1,9 +1,14 @@
-"use client";
-
 import React from "react";
 import { FormikErrors, useFormik } from "formik";
 import * as Yup from "yup";
-import { Button, Input, Link, Select, SelectItem, Spinner } from "@nextui-org/react";
+import {
+  Button,
+  Input,
+  Link,
+  Select,
+  SelectItem,
+  Spinner,
+} from "@nextui-org/react";
 import { CustomerBody } from "./customerBody";
 import { InputGroupType } from "@/typings/inputType";
 
@@ -22,7 +27,12 @@ type UserFormProps = {
   isMutate: boolean;
 };
 
-export default function CustomerForm({ initialValues = initialForm, formType, onSubmit, isMutate }: UserFormProps) {
+export default function CustomerForm({
+  initialValues = initialForm,
+  formType,
+  onSubmit,
+  isMutate,
+}: UserFormProps) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues,
@@ -30,7 +40,10 @@ export default function CustomerForm({ initialValues = initialForm, formType, on
       id: Yup.string().required("ID Pelanggan harus diisi"),
       name: Yup.string().required("Nama Pelanggan harus diisi"),
       phoneNumber: Yup.string()
-        .matches(/^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/, "Nomor telepon tidak valid")
+        .matches(
+          /^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/,
+          "Nomor telepon tidak valid",
+        )
         .required("Nomor telepon harus diisi"),
       email: Yup.string().email("Email harus sesuai format"),
       address: Yup.string().required("Alamat harus diisi"),
@@ -38,11 +51,15 @@ export default function CustomerForm({ initialValues = initialForm, formType, on
     onSubmit: onSubmit,
   });
 
-  const isInputError = (inputName: keyof FormikErrors<typeof initialValues>): boolean => {
+  const isInputError = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): boolean => {
     return Boolean(formik.errors[inputName] && formik.touched[inputName]);
   };
 
-  const getInputErrorMessage = (inputName: keyof FormikErrors<typeof initialValues>): string | undefined => {
+  const getInputErrorMessage = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): string | undefined => {
     return formik.errors[inputName];
   };
 
@@ -135,7 +152,9 @@ export default function CustomerForm({ initialValues = initialForm, formType, on
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               isInvalid={isInputError(input.name)}
-              errorMessage={isInputError(input.name) ? getInputErrorMessage(input.name) : ""}
+              errorMessage={
+                isInputError(input.name) ? getInputErrorMessage(input.name) : ""
+              }
               isDisabled={input.disabled}
             />
           ))}
@@ -166,10 +185,20 @@ export default function CustomerForm({ initialValues = initialForm, formType, on
       </div> */}
 
       <div className="pt-10 flex justify-end items-center gap-3">
-        <Button as={Link} href="/dashboard/customers" variant="light" className="font-semibold">
+        <Button
+          as={Link}
+          href="/dashboard/customers"
+          variant="light"
+          className="font-semibold"
+        >
           Batal
         </Button>
-        <Button color="primary" type="submit" className="py-6 font-semibold" isDisabled={isMutate}>
+        <Button
+          color="primary"
+          type="submit"
+          className="py-6 font-semibold"
+          isDisabled={isMutate}
+        >
           {isMutate && <Spinner color="default" size="sm" />}
           {formType === "NEW" ? "Tambah Pelanggan" : "Edit Pelanggan"}
         </Button>

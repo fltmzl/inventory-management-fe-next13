@@ -5,8 +5,8 @@ const columns = [
   { name: "SATUAN", uid: "satuan", sortable: true },
   { name: "STOK", uid: "stok", sortable: true },
   { name: "HARGA", uid: "harga", sortable: true },
-  // { name: "PEMBELIAN TERAKHIR", uid: "pembelianTerakhir", sortable: true },
-  // { name: "NOMOR LOT", uid: "nomorLot", sortable: true },
+  { name: "PEMBELIAN TERAKHIR", uid: "pembelianTerakhir", sortable: true },
+  { name: "NOMOR LOT", uid: "nomorLot", sortable: false },
   { name: "ACTIONS", uid: "actions" },
 ];
 

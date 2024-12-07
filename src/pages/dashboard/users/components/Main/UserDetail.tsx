@@ -2,7 +2,7 @@ import useSWR from "swr";
 import UserForm from "../Form/UserForm";
 import { UserBody } from "../Form/userBody";
 import { api } from "@/utils/axios";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import toast, { Toaster } from "react-hot-toast";
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
@@ -26,7 +26,8 @@ export default function UserDetail({ id }: { id: string }) {
   };
 
   const onSubmit = async (values: UserBody) => {
-    const { address, email, fullname, password, phoneNumber, role, username } = values;
+    const { address, email, fullname, password, phoneNumber, role, username } =
+      values;
     try {
       setIsMutate(true);
       const user = await api.put(`/pegawai/${id}`, {
@@ -50,7 +51,12 @@ export default function UserDetail({ id }: { id: string }) {
 
   return (
     <div className="bg-background px-6 py-7 rounded-md">
-      <UserForm formType="EDIT" initialValues={initialForm} isMutate={isMutate} onSubmit={onSubmit} />
+      <UserForm
+        formType="EDIT"
+        initialValues={initialForm}
+        isMutate={isMutate}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 }

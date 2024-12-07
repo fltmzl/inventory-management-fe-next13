@@ -1,5 +1,3 @@
-"use client";
-
 import UserTable from "../Table/UserTable";
 import useSWR from "swr";
 

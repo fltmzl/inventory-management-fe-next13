@@ -1,7 +1,7 @@
 import React from "react";
 import MainLayout from "../../components/Layout/MainLayout";
 import { useSWRConfig } from "swr";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { api } from "@/utils/axios";
 import toast from "react-hot-toast";
 import UnitForm from "../components/Form/UnitForm";

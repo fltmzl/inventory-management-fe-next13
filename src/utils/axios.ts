@@ -17,7 +17,7 @@ api.interceptors.request.use(
   (error) => {
     // Do something with request error
     return Promise.reject(error);
-  }
+  },
 );
 
 api.interceptors.response.use(
@@ -25,11 +25,14 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
-      window.location.href = "/auth/login";
-    }
+    // if (error.response && error.response.status === 401) {
+    //   window.location.href = "/auth/login";
+
+    //   return Promise.reject(error);
+    // }
+
     return Promise.reject(error);
-  }
+  },
 );
 
 export { api };

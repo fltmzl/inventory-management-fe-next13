@@ -1,11 +1,16 @@
-"use client";
-
 import React, { InputHTMLAttributes, useState } from "react";
 import { Formik, FormikErrors, FormikProps, useFormik } from "formik";
 import * as Yup from "yup";
-import { Button, Input, Link, Select, SelectItem, Selection } from "@nextui-org/react";
+import {
+  Button,
+  Input,
+  Link,
+  Select,
+  SelectItem,
+  Selection,
+} from "@nextui-org/react";
 import { api } from "@/utils/axios";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import useSWR from "swr";
 
 const initialForm = {
@@ -108,9 +113,11 @@ export default function UserForm({
       address: string;
       role: string;
     }>,
-    inputName: keyof FormikErrors<typeof initialValues>
+    inputName: keyof FormikErrors<typeof initialValues>,
   ): boolean => {
-    return Boolean(formikContext.errors[inputName] && formikContext.touched[inputName]);
+    return Boolean(
+      formikContext.errors[inputName] && formikContext.touched[inputName],
+    );
   };
 
   const getInputErrorMessage = (
@@ -124,12 +131,22 @@ export default function UserForm({
       address: string;
       role: string;
     }>,
-    inputName: keyof FormikErrors<typeof initialValues>
+    inputName: keyof FormikErrors<typeof initialValues>,
   ): string | undefined => {
     return formikContext.errors[inputName];
   };
 
-  type InputType = "text" | "email" | "password" | "number" | "checkbox" | "radio" | "file" | "submit" | "reset" | "button";
+  type InputType =
+    | "text"
+    | "email"
+    | "password"
+    | "number"
+    | "checkbox"
+    | "radio"
+    | "file"
+    | "submit"
+    | "reset"
+    | "button";
 
   type InputGroupType = {
     name: keyof FormikErrors<Omit<typeof initialValues, "role">>;
@@ -196,22 +213,43 @@ export default function UserForm({
       validationSchema={Yup.object({
         fullname: Yup.string().required("Nama lengkap harus diisi"),
         username: Yup.string().required("Username harus diisi"),
-        email: Yup.string().email("Email Anda tidak sesuai format").required("Username harus diisi"),
-        password: formType === "NEW" ? Yup.string().min(8, "Password minimal 8 karakter").required("Password harus diisi") : Yup.string().notRequired(),
+        email: Yup.string()
+          .email("Email Anda tidak sesuai format")
+          .required("Username harus diisi"),
+        password:
+          formType === "NEW"
+            ? Yup.string()
+                .min(8, "Password minimal 8 karakter")
+                .required("Password harus diisi")
+            : Yup.string().notRequired(),
         confirmPassword:
           formType === "NEW"
             ? Yup.string()
-                .oneOf([Yup.ref("password"), ""], "Konfirmasi Password tidak cocok")
+                .oneOf(
+                  [Yup.ref("password"), ""],
+                  "Konfirmasi Password tidak cocok",
+                )
                 .required("Konfirmasi Password harus diisi")
             : Yup.string().notRequired(),
         phoneNumber: Yup.string()
-          .matches(/^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/, "Nomor telepon tidak valid")
+          .matches(
+            /^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/,
+            "Nomor telepon tidak valid",
+          )
           .required("Nomor telepon harus diisi"),
         address: Yup.string().required("Alamat harus diisi"),
         role: Yup.string().required("Jabatan harus diisi"),
       })}
       onSubmit={async (values) => {
-        const { address, email, fullname, password, phoneNumber, role, username } = values;
+        const {
+          address,
+          email,
+          fullname,
+          password,
+          phoneNumber,
+          role,
+          username,
+        } = values;
 
         try {
           let user;
@@ -267,7 +305,11 @@ export default function UserForm({
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={isInputError(formik, input.name)}
-                  errorMessage={isInputError(formik, input.name) ? getInputErrorMessage(formik, input.name) : ""}
+                  errorMessage={
+                    isInputError(formik, input.name)
+                      ? getInputErrorMessage(formik, input.name)
+                      : ""
+                  }
                 />
               ))}
             </div>
@@ -291,7 +333,11 @@ export default function UserForm({
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 isInvalid={isInputError(formik, input.name)}
-                errorMessage={isInputError(formik, input.name) ? getInputErrorMessage(formik, input.name) : ""}
+                errorMessage={
+                  isInputError(formik, input.name)
+                    ? getInputErrorMessage(formik, input.name)
+                    : ""
+                }
               />
             ))}
 
@@ -308,7 +354,11 @@ export default function UserForm({
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 isInvalid={isInputError(formik, "role")}
-                errorMessage={isInputError(formik, "role") ? getInputErrorMessage(formik, "role") : ""}
+                errorMessage={
+                  isInputError(formik, "role")
+                    ? getInputErrorMessage(formik, "role")
+                    : ""
+                }
               >
                 {/* selectedKeys={role}
                 onSelectionChange={setRole} */}
@@ -323,10 +373,19 @@ export default function UserForm({
           </div>
 
           <div className="pt-10 flex justify-end items-center gap-3">
-            <Button as={Link} href="/dashboard/users" variant="light" className="font-semibold">
+            <Button
+              as={Link}
+              href="/dashboard/users"
+              variant="light"
+              className="font-semibold"
+            >
               Batal
             </Button>
-            <Button color="primary" type="submit" className="py-6 font-semibold">
+            <Button
+              color="primary"
+              type="submit"
+              className="py-6 font-semibold"
+            >
               {formType === "NEW" ? "Tambah Karyawan" : "Edit Karyawan"}
             </Button>
           </div>

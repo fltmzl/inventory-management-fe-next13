@@ -2,9 +2,6 @@ import MainLayout from "@/pages/dashboard/components/Layout/MainLayout";
 import React from "react";
 import UserForm from "../../components/Form/UserForm";
 import { api } from "@/utils/axios";
-import useSWR from "swr";
-import { useParams } from "next/navigation";
-import { cookies } from "next/headers";
 import UserDetail from "../../components/Main/UserDetail";
 import { GetServerSideProps } from "next";
 

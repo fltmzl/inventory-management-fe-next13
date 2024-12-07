@@ -1,6 +1,12 @@
 import RpIcon from "@/icons/RpIcon";
 import { InputGroupType } from "@/typings/inputType";
-import { Autocomplete, AutocompleteItem, Button, Input, Link } from "@nextui-org/react";
+import {
+  Autocomplete,
+  AutocompleteItem,
+  Button,
+  Input,
+  Link,
+} from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
@@ -10,7 +16,11 @@ import { RxCross2 } from "react-icons/rx";
 import { v4 as uuidv4 } from "uuid";
 import * as Yup from "yup";
 import { ItemsProps } from "../../add/AddTransactionOut";
-import { Item, TransactionOutBody, TransactionOutInitialForm } from "./transactionOutBody";
+import {
+  Item,
+  TransactionOutBody,
+  TransactionOutInitialForm,
+} from "./transactionOutBody";
 import { api } from "@/utils/axios";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 
@@ -36,7 +46,16 @@ type TransactionOutFormProps = {
   onSubmit: (values: TransactionOutBody, items: ItemsProps[]) => Promise<void>;
 };
 
-export default function TransactionOutForm({ initialValues = initialForm, formType, initialValueOptions: { inventoryItems, itemRequestItems, initialItemValue = [] }, onSubmit }: TransactionOutFormProps) {
+export default function TransactionOutForm({
+  initialValues = initialForm,
+  formType,
+  initialValueOptions: {
+    inventoryItems,
+    itemRequestItems,
+    initialItemValue = [],
+  },
+  onSubmit,
+}: TransactionOutFormProps) {
   const [items, setItems] = useState<ItemList[]>([...initialItemValue]);
   const totalPrice = useMemo(() => {
     const total = items.reduce((prev, current) => {
@@ -52,7 +71,9 @@ export default function TransactionOutForm({ initialValues = initialForm, formTy
   const handleItemRequestChange = async (itemRequestId: string) => {
     if (!itemRequestId) return setItems([]);
 
-    const res = await api.get<ApiSuccessResponse<ItemRequest>>(`/permintaan-barang/${itemRequestId}`);
+    const res = await api.get<ApiSuccessResponse<ItemRequest>>(
+      `/permintaan-barang/${itemRequestId}`,
+    );
 
     const mappedItems = res.data.data.barang.map((barangItem) => ({
       key: uuidv4(),
@@ -89,11 +110,15 @@ export default function TransactionOutForm({ initialValues = initialForm, formTy
     },
   });
 
-  const isInputError = (inputName: keyof FormikErrors<typeof initialValues>): boolean => {
+  const isInputError = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): boolean => {
     return Boolean(formik.errors[inputName] && formik.touched[inputName]);
   };
 
-  const getInputErrorMessage = (inputName: keyof FormikErrors<typeof initialValues>): string | undefined => {
+  const getInputErrorMessage = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): string | undefined => {
     return formik.errors[inputName];
   };
 
@@ -112,7 +137,11 @@ export default function TransactionOutForm({ initialValues = initialForm, formTy
     },
   ];
 
-  const onItemChange = (inputName: string, value: string | number, index: number) => {
+  const onItemChange = (
+    inputName: string,
+    value: string | number,
+    index: number,
+  ) => {
     const newItemsArray = items.map((item, i) => {
       if (i !== index) return item;
 
@@ -145,7 +174,9 @@ export default function TransactionOutForm({ initialValues = initialForm, formTy
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               isInvalid={isInputError(input.name)}
-              errorMessage={isInputError(input.name) ? getInputErrorMessage(input.name) : ""}
+              errorMessage={
+                isInputError(input.name) ? getInputErrorMessage(input.name) : ""
+              }
             />
           ))}
 
@@ -204,7 +235,7 @@ export default function TransactionOutForm({ initialValues = initialForm, formTy
                   placeholder="Pilih Barang"
                   className="max-w-xs"
                   onSelectionChange={(value) => {
-                    onItemChange("id", value, index);
+                    onItemChange("id", value as string, index);
                   }}
                   defaultSelectedKey={item.id}
                   isDisabled
@@ -226,7 +257,9 @@ export default function TransactionOutForm({ initialValues = initialForm, formTy
                   labelPlacement="outside"
                   placeholder="Total Barang"
                   value={item.total.toString()}
-                  onValueChange={(value) => onItemChange("total", parseInt(value), index)}
+                  onValueChange={(value) =>
+                    onItemChange("total", parseInt(value), index)
+                  }
                   isDisabled
                 />
 
@@ -240,7 +273,9 @@ export default function TransactionOutForm({ initialValues = initialForm, formTy
                   labelPlacement="outside"
                   placeholder="Harga per satuan"
                   value={item.price.toString()}
-                  onValueChange={(value) => onItemChange("price", parseInt(value), index)}
+                  onValueChange={(value) =>
+                    onItemChange("price", parseInt(value), index)
+                  }
                   endContent={
                     <div className="pointer-events-none flex items-center">
                       <span className="text-default-400 text-small">,00</span>
@@ -296,7 +331,12 @@ export default function TransactionOutForm({ initialValues = initialForm, formTy
       </div>
 
       <div className="pt-10 flex justify-end items-center gap-3">
-        <Button as={Link} href="/dashboard/transactions-out" variant="light" className="font-semibold">
+        <Button
+          as={Link}
+          href="/dashboard/transactions-out"
+          variant="light"
+          className="font-semibold"
+        >
           Batal
         </Button>
         <Button color="primary" type="submit" className="py-6 font-semibold">

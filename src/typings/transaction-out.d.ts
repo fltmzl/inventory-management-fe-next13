@@ -18,6 +18,11 @@ type TransactionOut = {
       satuan: string;
       jumlah: number;
       hargaSatuan: string;
-    }
+      nomorLot: {
+        kode: string;
+        totalBarang: number;
+        createdAt: string;
+      }[];
+    },
   ];
 };

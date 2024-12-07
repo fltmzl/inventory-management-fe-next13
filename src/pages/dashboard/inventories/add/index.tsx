@@ -1,10 +1,8 @@
-"use client";
-
 import toast from "react-hot-toast";
 import MainLayout from "../../components/Layout/MainLayout";
 import InventoryForm from "../components/Form/InventoryForm";
 import { api } from "@/utils/axios";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
 import { InventoryBody } from "../components/Form/inventoryBody";
 import useMutateState from "@/hooks/custom/useMutate";

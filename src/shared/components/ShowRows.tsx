@@ -19,7 +19,9 @@ export default function ShowRows<TData>({ table }: Props<TData>) {
           defaultValue={table.rowsPerPage}
         >
           {rowsList.map((row) => (
-            <option value={row}>{row}</option>
+            <option key={row} value={row}>
+              {row}
+            </option>
           ))}
         </select>
         data

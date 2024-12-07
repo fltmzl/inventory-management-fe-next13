@@ -1,8 +1,6 @@
-"use client";
-
 import React from "react";
 import CategoryForm from "../Form/CategoryForm";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import useSWR from "swr";
 import { api } from "@/utils/axios";
 import toast from "react-hot-toast";
@@ -14,7 +12,9 @@ type CategoryDetailProps = {
 
 export default function CategoryDetail({ id }: CategoryDetailProps) {
   const router = useRouter();
-  const { data, isLoading } = useSWR<ApiSuccessResponse<Category>>(`/kategori/${id}`);
+  const { data, isLoading } = useSWR<ApiSuccessResponse<Category>>(
+    `/kategori/${id}`,
+  );
   const { isMutate, setIsMutate } = useMutateState();
 
   if (isLoading) return <p>loading kategori edit</p>;
@@ -48,7 +48,12 @@ export default function CategoryDetail({ id }: CategoryDetailProps) {
 
   return (
     <div className="bg-background px-6 py-7 rounded-md">
-      <CategoryForm formType="EDIT" initialValues={initialForm} onSubmit={onSubmit} isMutate={isMutate} />
+      <CategoryForm
+        formType="EDIT"
+        initialValues={initialForm}
+        onSubmit={onSubmit}
+        isMutate={isMutate}
+      />
     </div>
   );
 }

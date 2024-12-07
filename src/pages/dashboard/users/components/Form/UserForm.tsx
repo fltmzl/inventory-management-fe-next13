@@ -1,9 +1,14 @@
-"use client";
-
 import React from "react";
 import { FormikErrors, useFormik } from "formik";
 import * as Yup from "yup";
-import { Button, Input, Link, Select, SelectItem, Spinner } from "@nextui-org/react";
+import {
+  Button,
+  Input,
+  Link,
+  Select,
+  SelectItem,
+  Spinner,
+} from "@nextui-org/react";
 import { UserBody } from "./userBody";
 
 const initialForm = {
@@ -24,23 +29,41 @@ type UserFormProps = {
   isMutate: boolean;
 };
 
-export default function UserForm({ initialValues = initialForm, formType, isMutate, onSubmit }: UserFormProps) {
+export default function UserForm({
+  initialValues = initialForm,
+  formType,
+  isMutate,
+  onSubmit,
+}: UserFormProps) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues,
     validationSchema: Yup.object({
       fullname: Yup.string().required("Nama lengkap harus diisi"),
       username: Yup.string().required("Username harus diisi"),
-      email: Yup.string().email("Email Anda tidak sesuai format").required("Username harus diisi"),
-      password: formType === "NEW" ? Yup.string().min(8, "Password minimal 8 karakter").required("Password harus diisi") : Yup.string().notRequired(),
+      email: Yup.string()
+        .email("Email Anda tidak sesuai format")
+        .required("Username harus diisi"),
+      password:
+        formType === "NEW"
+          ? Yup.string()
+              .min(8, "Password minimal 8 karakter")
+              .required("Password harus diisi")
+          : Yup.string().notRequired(),
       confirmPassword:
         formType === "NEW"
           ? Yup.string()
-              .oneOf([Yup.ref("password"), ""], "Konfirmasi Password tidak cocok")
+              .oneOf(
+                [Yup.ref("password"), ""],
+                "Konfirmasi Password tidak cocok",
+              )
               .required("Konfirmasi Password harus diisi")
           : Yup.string().notRequired(),
       phoneNumber: Yup.string()
-        .matches(/^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/, "Nomor telepon tidak valid")
+        .matches(
+          /^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/,
+          "Nomor telepon tidak valid",
+        )
         .required("Nomor telepon harus diisi"),
       address: Yup.string().required("Alamat harus diisi"),
       role: Yup.string().required("Jabatan harus diisi"),
@@ -48,15 +71,29 @@ export default function UserForm({ initialValues = initialForm, formType, isMuta
     onSubmit: onSubmit,
   });
 
-  const isInputError = (inputName: keyof FormikErrors<typeof initialValues>): boolean => {
+  const isInputError = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): boolean => {
     return Boolean(formik.errors[inputName] && formik.touched[inputName]);
   };
 
-  const getInputErrorMessage = (inputName: keyof FormikErrors<typeof initialValues>): string | undefined => {
+  const getInputErrorMessage = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): string | undefined => {
     return formik.errors[inputName];
   };
 
-  type InputType = "text" | "email" | "password" | "number" | "checkbox" | "radio" | "file" | "submit" | "reset" | "button";
+  type InputType =
+    | "text"
+    | "email"
+    | "password"
+    | "number"
+    | "checkbox"
+    | "radio"
+    | "file"
+    | "submit"
+    | "reset"
+    | "button";
 
   type InputGroupType = {
     name: keyof FormikErrors<Omit<typeof initialValues, "role">>;
@@ -136,7 +173,9 @@ export default function UserForm({ initialValues = initialForm, formType, isMuta
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               isInvalid={isInputError(input.name)}
-              errorMessage={isInputError(input.name) ? getInputErrorMessage(input.name) : ""}
+              errorMessage={
+                isInputError(input.name) ? getInputErrorMessage(input.name) : ""
+              }
             />
           ))}
         </div>
@@ -160,7 +199,9 @@ export default function UserForm({ initialValues = initialForm, formType, isMuta
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             isInvalid={isInputError(input.name)}
-            errorMessage={isInputError(input.name) ? getInputErrorMessage(input.name) : ""}
+            errorMessage={
+              isInputError(input.name) ? getInputErrorMessage(input.name) : ""
+            }
           />
         ))}
 
@@ -177,7 +218,9 @@ export default function UserForm({ initialValues = initialForm, formType, isMuta
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             isInvalid={isInputError("role")}
-            errorMessage={isInputError("role") ? getInputErrorMessage("role") : ""}
+            errorMessage={
+              isInputError("role") ? getInputErrorMessage("role") : ""
+            }
           >
             <SelectItem key="admin" value="admin">
               Admin
@@ -190,10 +233,20 @@ export default function UserForm({ initialValues = initialForm, formType, isMuta
       </div>
 
       <div className="pt-10 flex justify-end items-center gap-3">
-        <Button as={Link} href="/dashboard/users" variant="light" className="font-semibold">
+        <Button
+          as={Link}
+          href="/dashboard/users"
+          variant="light"
+          className="font-semibold"
+        >
           Batal
         </Button>
-        <Button color="primary" type="submit" className="py-6 font-semibold" isDisabled={isMutate}>
+        <Button
+          color="primary"
+          type="submit"
+          className="py-6 font-semibold"
+          isDisabled={isMutate}
+        >
           {isMutate && <Spinner color="default" size="sm" />}
           {formType === "NEW" ? "Tambah Karyawan" : "Edit Karyawan"}
         </Button>

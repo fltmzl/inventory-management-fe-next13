@@ -35,7 +35,18 @@ export const convertToDateString = (dateObject: Date) => {
   return dateObject.toISOString().split("T")[0];
 };
 
-export const convertToLocaleDateString = (dateObject: Date, monthType: "numeric" | "2-digit" | "long" | "short" | "narrow" | undefined = "numeric") => {
+export const convertToLocaleDateString = (
+  dateObject: Date | undefined,
+  monthType:
+    | "numeric"
+    | "2-digit"
+    | "long"
+    | "short"
+    | "narrow"
+    | undefined = "numeric",
+) => {
+  if (!dateObject) return "undefine object DATE";
+
   return dateObject.toLocaleDateString("id-ID", {
     day: "numeric",
     month: monthType,

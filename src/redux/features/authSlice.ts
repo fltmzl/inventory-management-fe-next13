@@ -1,3 +1,4 @@
+import { removeAccessToken } from "@/helpers/auth";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
@@ -23,7 +24,10 @@ export const authSlice = createSlice({
       state.user = action.payload;
     },
     logout: (state) => {
+      removeAccessToken();
       state.user = null;
+
+      window.location.href = "/auth/login";
     },
   },
 });

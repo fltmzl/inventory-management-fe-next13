@@ -1,10 +1,8 @@
-"use client";
-
 import { useState } from "react";
 import useSWR from "swr";
-import TransactionsOutTable from "../Table/TransactionsOutTable";
 import InputDateRange from "../Table/InputDateRange";
 import { subDays } from "date-fns";
+import ReportTransactionsOutTable from "../Table/ReportTransactionsOutTable";
 
 export default function TransactionsOutReport() {
   const [dateRange, setDateRange] = useState({
@@ -12,14 +10,20 @@ export default function TransactionsOutReport() {
     to: +new Date(),
   });
 
-  const { data, isLoading } = useSWR(`/transaksi-barang-keluar/report?from=${dateRange.from}&to=${dateRange.to}`);
+  const { data, isLoading } = useSWR(
+    `/transaksi-barang-keluar/report?from=${dateRange.from}&to=${dateRange.to}`,
+  );
 
   if (isLoading) return <p>Loading borr</p>;
 
   return (
     <>
-      <InputDateRange dateRange={dateRange} setDateRange={setDateRange} transactions={data?.data} />
-      <TransactionsOutTable transactions={data?.data} />
+      <InputDateRange
+        dateRange={dateRange}
+        setDateRange={setDateRange}
+        transactions={data?.data}
+      />
+      <ReportTransactionsOutTable transactions={data?.data} />
     </>
   );
 }

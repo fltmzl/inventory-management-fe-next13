@@ -7,7 +7,10 @@ type MainLayoutProps = {
   title?: string;
 };
 
-export default function MainLayout({ children, title = "Title Page" }: MainLayoutProps) {
+export default function MainLayout({
+  children,
+  title = "Title Page",
+}: MainLayoutProps) {
   return (
     <DashboardLayout>
       <div>

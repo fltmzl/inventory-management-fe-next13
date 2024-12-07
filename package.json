@@ -9,7 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@internationalized/date": "^3.5.5",
+    "@mui/material": "^6.0.2",
+    "@mui/x-charts": "^7.16.0",
     "@nextui-org/react": "^2.4.6",
     "@react-pdf/renderer": "^3.4.4",
     "@reduxjs/toolkit": "^2.2.7",
@@ -21,6 +25,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "next": "^13.3.4",
+    "next-nprogress-bar": "^2.3.13",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-date-range": "^2.0.1",
@@ -36,6 +41,7 @@
   "devDependencies": {
     "@types/node": "^22.5.0",
     "@types/react": "^18.3.4",
+    "@types/react-date-range": "^1.4.9",
     "@types/react-dom": "^18.3.0",
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",

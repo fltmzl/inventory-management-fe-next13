@@ -24,7 +24,7 @@ export default function FilterShowColumn<TData>({
 
   return (
     <Dropdown>
-      <DropdownTrigger className="hidden sm:flex">
+      <DropdownTrigger className="flex">
         <Button
           isIconOnly={!isLargeScreen}
           endContent={

@@ -1,16 +1,16 @@
-"use client";
-
 import useSWR from "swr";
 import CustomerForm from "../Form/CustomerForm";
 import { api } from "@/utils/axios";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { CustomerBody } from "../Form/customerBody";
 import useMutateState from "@/hooks/custom/useMutate";
 
 export default function CustomerDetail({ id }: { id: string }) {
   const router = useRouter();
-  const { data, isLoading } = useSWR<ApiSuccessResponse<Customer>>(`/pelanggan/${id}`);
+  const { data, isLoading } = useSWR<ApiSuccessResponse<Customer>>(
+    `/pelanggan/${id}`,
+  );
   const { isMutate, setIsMutate } = useMutateState();
 
   if (isLoading) return <p>loading borrr EDIT.....</p>;
@@ -49,7 +49,12 @@ export default function CustomerDetail({ id }: { id: string }) {
 
   return (
     <div className="bg-background px-6 py-7 rounded-md">
-      <CustomerForm formType="EDIT" initialValues={initialForm} onSubmit={onSubmit} isMutate={isMutate} />
+      <CustomerForm
+        formType="EDIT"
+        initialValues={initialForm}
+        onSubmit={onSubmit}
+        isMutate={isMutate}
+      />
     </div>
   );
 }

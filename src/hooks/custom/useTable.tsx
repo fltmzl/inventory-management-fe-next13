@@ -58,7 +58,7 @@ export default function useTable<T>({
   initialVisibleColumns,
   data,
   columnToSearch = "nama",
-  initialRowsPerPage = 5,
+  initialRowsPerPage = 50,
 }: useTableProps<T>): Table<T> {
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
   const [page, setPage] = useState(1);
@@ -110,9 +110,20 @@ export default function useTable<T>({
     return [...items].sort((a, b) => {
       const first = a[sortDescriptor.column as keyof DataWithNamaProperty<T>];
       const second = b[sortDescriptor.column as keyof DataWithNamaProperty<T>];
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+      let cmp =
+        (parseInt(first as string) || first) <
+        (parseInt(second as string) || second)
+          ? -1
+          : 1;
 
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+      if (sortDescriptor.direction === "descending") {
+        cmp *= -1;
+      }
+
+      return cmp;
+
+      // const cmp = first < second ? -1 : first > second ? 1 : 0;
+      // return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 

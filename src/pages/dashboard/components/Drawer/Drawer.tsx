@@ -1,6 +1,4 @@
-"use client";
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import { useAppDispatch, useAppSelector } from "@/redux/redux";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,12 +10,19 @@ export default function Drawer() {
   const drawer = useAppSelector((state) => state.drawer);
   const dispatch = useAppDispatch();
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const onClickBackdrop = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     dispatch(closeDrawer());
 
     e.stopPropagation();
   };
+
+  if (!isMounted) return null; // Prevent SSR mismatches
 
   return (
     <>

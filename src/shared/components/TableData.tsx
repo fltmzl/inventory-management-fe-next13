@@ -32,7 +32,7 @@ export default function TableData<TData>({
       bottomContentPlacement="outside"
       className="gap-0"
       classNames={{
-        wrapper: "max-h-[382px] bg-background rounded-b-none shadow-none",
+        wrapper: "bg-background rounded-b-none shadow-none",
       }}
       selectedKeys={table.selectedKeys}
       selectionMode="none"

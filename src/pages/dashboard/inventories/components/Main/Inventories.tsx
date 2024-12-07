@@ -1,5 +1,3 @@
-"use client";
-
 import InventoryTable from "../Table/InventoryTable";
 import useSWR from "swr";
 

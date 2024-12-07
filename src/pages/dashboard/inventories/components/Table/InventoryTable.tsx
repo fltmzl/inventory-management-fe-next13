@@ -6,7 +6,6 @@ import { FiSearch } from "react-icons/fi";
 import { api } from "@/utils/axios";
 import { useSWRConfig } from "swr";
 import toast from "react-hot-toast";
-import { useMediaQuery } from "@/hooks/custom/useMediaQuery";
 import useTable from "@/hooks/custom/useTable";
 import DeleteModal from "./DeleteModal";
 import DefaultCell from "@/shared/components/DefaultCell";
@@ -16,6 +15,7 @@ import ShowRows from "@/shared/components/ShowRows";
 import FilterShowColumn from "@/shared/components/FilterShowColumn";
 import FooterTable from "@/shared/components/FooterTable";
 import TableData from "@/shared/components/TableData";
+import { ISODateToLocal } from "@/utils/dateTime";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "id",
@@ -80,8 +80,12 @@ export default function InventoriesTable({
             <DefaultCell value={"Rp " + formatToRupiah(inventory.harga)} />
           );
         case "nomorLot":
-          const nomorLots = inventory.nomorLot.join(", ");
+          const nomorLots = inventory.nomorLot.join("\n ");
           return <DefaultCell value={nomorLots} />;
+        case "pembelianTerakhir":
+          return (
+            <DefaultCell value={ISODateToLocal(inventory.pembelianTerakhir)} />
+          );
         case "actions":
           return (
             <DefaultActionCell
@@ -93,6 +97,7 @@ export default function InventoriesTable({
           return <DefaultCell value={cellValue as string} />;
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [onDeleteItem],
   );
 

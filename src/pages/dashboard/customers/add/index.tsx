@@ -1,11 +1,9 @@
-"use client";
-
 import React from "react";
 import MainLayout from "../../components/Layout/MainLayout";
 import CustomerForm from "../components/Form/CustomerForm";
 import { api } from "@/utils/axios";
 import { CustomerBody } from "../components/Form/customerBody";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { useSWRConfig } from "swr";
 import useMutateState from "@/hooks/custom/useMutate";

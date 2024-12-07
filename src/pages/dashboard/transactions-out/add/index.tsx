@@ -1,16 +1,16 @@
 import { api } from "@/utils/axios";
 import AddTransactionOut from "./AddTransactionOut";
-
-const getInventoryItems = async () => {
-  const { data } = await api.get<ApiSuccessResponse<Inventory[]>>("/barang");
-  return data.data;
-};
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 const getInitialData = async () => {
   const inventory = api.get<ApiSuccessResponse<Inventory[]>>("/barang");
-  const itemRequest = api.get<ApiSuccessResponse<ItemRequest[]>>("/permintaan-barang");
+  const itemRequest =
+    api.get<ApiSuccessResponse<ItemRequest[]>>("/permintaan-barang");
 
-  const [inventoryData, itemRequestData] = await Promise.all([inventory, itemRequest]);
+  const [inventoryData, itemRequestData] = await Promise.all([
+    inventory,
+    itemRequest,
+  ]);
 
   return {
     inventoryItems: inventoryData.data.data,
@@ -18,8 +18,28 @@ const getInitialData = async () => {
   };
 };
 
-export default async function AddTransactionInPage() {
-  const initialData = await getInitialData();
+export const getServerSideProps = (async () => {
+  const { inventoryItems, itemRequestItems } = await getInitialData();
 
-  return <AddTransactionOut inventoryItems={initialData.inventoryItems} itemRequestItems={initialData.itemRequestItems} />;
+  return {
+    props: {
+      inventoryItems,
+      itemRequestItems,
+    },
+  };
+}) satisfies GetServerSideProps<{
+  inventoryItems: Inventory[];
+  itemRequestItems: ItemRequest[];
+}>;
+
+export default function AddTransactionInPage({
+  inventoryItems,
+  itemRequestItems,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  return (
+    <AddTransactionOut
+      inventoryItems={inventoryItems}
+      itemRequestItems={itemRequestItems}
+    />
+  );
 }

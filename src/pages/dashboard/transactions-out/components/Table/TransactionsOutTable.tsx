@@ -66,6 +66,7 @@ export default function TransactionsOutTable({
         onClose();
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mutate],
   );
 
@@ -88,9 +89,13 @@ export default function TransactionsOutTable({
           return (
             <div>
               {transaction.barang.map((barangItem) => (
-                <p
-                  key={barangItem.id}
-                >{`${barangItem.nama}   ( ${barangItem.jumlah} ${barangItem.satuan} x Rp${formatToRupiah(Number(barangItem.hargaSatuan))} )`}</p>
+                <p key={barangItem.id}>
+                  {`${barangItem.nama}   ( ${barangItem.jumlah} ${barangItem.satuan} x Rp${formatToRupiah(Number(barangItem.hargaSatuan))} ) `}
+
+                  <span className="font-bold text-primary-500 dark:text-primary-500">
+                    LOT: {barangItem.nomorLot[0].kode}
+                  </span>
+                </p>
               ))}
             </div>
           );
@@ -108,6 +113,7 @@ export default function TransactionsOutTable({
           return <DefaultCell value={cellValue as string} />;
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [onDeleteItem],
   );
 
@@ -138,7 +144,7 @@ export default function TransactionsOutTable({
                 inputWrapper: "py-0 h-full",
               }}
               size="sm"
-              placeholder="Cari berdasarkan nama"
+              placeholder="Cari berdasarkan ID"
               startContent={<FiSearch />}
               value={table.filterValue}
               onClear={() => table.onClear()}
@@ -152,6 +158,7 @@ export default function TransactionsOutTable({
 
   const bottomContent = useMemo(() => {
     return <FooterTable table={table} totalData={transactions.length} />;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [table]);
 
   return (

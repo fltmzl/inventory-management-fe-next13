@@ -1,10 +1,8 @@
-"use client";
-
 import React from "react";
 import MainLayout from "../../components/Layout/MainLayout";
 import TransactionInForm from "../components/Form/TransactionInForm";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
 import { api } from "@/utils/axios";
 import { TransactionInBody } from "../components/Form/transactionInBody";

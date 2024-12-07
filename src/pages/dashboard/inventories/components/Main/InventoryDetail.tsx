@@ -1,8 +1,6 @@
-"use client";
-
 import useSWR from "swr";
 import { api } from "@/utils/axios";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import InventoryForm from "../Form/InventoryForm";
 import { InventoryBody } from "../Form/inventoryBody";
@@ -10,7 +8,9 @@ import useMutateState from "@/hooks/custom/useMutate";
 
 export default function InventoryDetail({ id }: { id: string }) {
   const router = useRouter();
-  const { data, isLoading } = useSWR<ApiSuccessResponse<Inventory>>(`/barang/${id}`);
+  const { data, isLoading } = useSWR<ApiSuccessResponse<Inventory>>(
+    `/barang/${id}`,
+  );
   const { isMutate, setIsMutate } = useMutateState();
 
   if (isLoading) return <p>loading borrr EDIT.....</p>;
@@ -52,7 +52,14 @@ export default function InventoryDetail({ id }: { id: string }) {
 
   return (
     <div className="bg-background px-6 py-7 rounded-md">
-      <InventoryForm formType="EDIT" initialValues={initialForm} onSubmit={onSubmit} initialSelectedCategory={inventory.kategori} initialSelectedUnit={inventory.satuan} isMutate={isMutate} />
+      <InventoryForm
+        formType="EDIT"
+        initialValues={initialForm}
+        onSubmit={onSubmit}
+        initialSelectedCategory={inventory.kategori}
+        initialSelectedUnit={inventory.satuan}
+        isMutate={isMutate}
+      />
     </div>
   );
 }

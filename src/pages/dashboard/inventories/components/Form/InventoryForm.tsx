@@ -1,9 +1,14 @@
-"use client";
-
 import React, { useEffect, useState, useMemo } from "react";
 import { FormikErrors, useFormik } from "formik";
 import * as Yup from "yup";
-import { Button, Input, Link, Select, SelectItem, Spinner } from "@nextui-org/react";
+import {
+  Button,
+  Input,
+  Link,
+  Select,
+  SelectItem,
+  Spinner,
+} from "@nextui-org/react";
 import { InputGroupType } from "@/typings/inputType";
 import { InventoryBody } from "./inventoryBody";
 import useSWR from "swr";
@@ -34,9 +39,18 @@ type UserFormProps = {
   };
 };
 
-export default function InventoryForm({ initialValues = initialForm, formType, onSubmit, initialSelectedCategory, initialSelectedUnit, isMutate }: UserFormProps) {
-  const { data: categories, isLoading: isLoadingCategories } = useSWR<ApiSuccessResponse<Category[]>>("/kategori");
-  const { data: units, isLoading: isLoadingUnits } = useSWR<ApiSuccessResponse<Unit[]>>("/satuan");
+export default function InventoryForm({
+  initialValues = initialForm,
+  formType,
+  onSubmit,
+  initialSelectedCategory,
+  initialSelectedUnit,
+  isMutate,
+}: UserFormProps) {
+  const { data: categories, isLoading: isLoadingCategories } =
+    useSWR<ApiSuccessResponse<Category[]>>("/kategori");
+  const { data: units, isLoading: isLoadingUnits } =
+    useSWR<ApiSuccessResponse<Unit[]>>("/satuan");
 
   const [categoriesData, setCategoriesData] = useState<Category[]>([]);
   const [unitsData, setUnitsData] = useState<Unit[]>([]);
@@ -67,11 +81,15 @@ export default function InventoryForm({ initialValues = initialForm, formType, o
     onSubmit: onSubmit,
   });
 
-  const isInputError = (inputName: keyof FormikErrors<typeof initialValues>): boolean => {
+  const isInputError = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): boolean => {
     return Boolean(formik.errors[inputName] && formik.touched[inputName]);
   };
 
-  const getInputErrorMessage = (inputName: keyof FormikErrors<typeof initialValues>): string | undefined => {
+  const getInputErrorMessage = (
+    inputName: keyof FormikErrors<typeof initialValues>,
+  ): string | undefined => {
     return formik.errors[inputName];
   };
 
@@ -122,7 +140,9 @@ export default function InventoryForm({ initialValues = initialForm, formType, o
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               isInvalid={isInputError(input.name)}
-              errorMessage={isInputError(input.name) ? getInputErrorMessage(input.name) : ""}
+              errorMessage={
+                isInputError(input.name) ? getInputErrorMessage(input.name) : ""
+              }
             />
           ))}
         </div>
@@ -140,12 +160,16 @@ export default function InventoryForm({ initialValues = initialForm, formType, o
             labelPlacement="outside"
             size="lg"
             label="Satuan Barang"
-            placeholder={initialValues.unit_id ? initialSelectedUnit?.nama : "Pilih Satuan"}
+            placeholder={
+              initialValues.unit_id ? initialSelectedUnit?.nama : "Pilih Satuan"
+            }
             name="unit_id"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             isInvalid={isInputError("unit_id")}
-            errorMessage={isInputError("unit_id") ? getInputErrorMessage("unit_id") : ""}
+            errorMessage={
+              isInputError("unit_id") ? getInputErrorMessage("unit_id") : ""
+            }
           >
             {unitsData.map((unit) => (
               <SelectItem key={unit.id} value={unit.id}>
@@ -168,12 +192,20 @@ export default function InventoryForm({ initialValues = initialForm, formType, o
             labelPlacement="outside"
             size="lg"
             label="Kategori Barang"
-            placeholder={initialValues.category_id ? initialSelectedCategory?.nama : "Pilih Kategori"}
+            placeholder={
+              initialValues.category_id
+                ? initialSelectedCategory?.nama
+                : "Pilih Kategori"
+            }
             name="category_id"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             isInvalid={isInputError("category_id")}
-            errorMessage={isInputError("category_id") ? getInputErrorMessage("category_id") : ""}
+            errorMessage={
+              isInputError("category_id")
+                ? getInputErrorMessage("category_id")
+                : ""
+            }
           >
             {categoriesData.map((category) => (
               <SelectItem key={category.id} value={category.id}>
@@ -185,10 +217,20 @@ export default function InventoryForm({ initialValues = initialForm, formType, o
       </div>
 
       <div className="pt-10 flex justify-end items-center gap-3">
-        <Button as={Link} href="/dashboard/inventories" variant="light" className="font-semibold">
+        <Button
+          as={Link}
+          href="/dashboard/inventories"
+          variant="light"
+          className="font-semibold"
+        >
           Batal
         </Button>
-        <Button color="primary" type="submit" className="py-6 font-semibold" isDisabled={isMutate}>
+        <Button
+          color="primary"
+          type="submit"
+          className="py-6 font-semibold"
+          isDisabled={isMutate}
+        >
           {isMutate && <Spinner color="default" size="sm" />}
           {formType === "NEW" ? "Tambah Barang" : "Edit Barang"}
         </Button>

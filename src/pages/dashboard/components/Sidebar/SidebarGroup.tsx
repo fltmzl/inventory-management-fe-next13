@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
@@ -12,17 +10,31 @@ type SidebarGroupProps = {
   openByDefault?: boolean;
 };
 
-export default function SidebarGroup({ children, icon, label = "Label", openByDefault = true }: SidebarGroupProps) {
+export default function SidebarGroup({
+  children,
+  icon,
+  label = "Label",
+  openByDefault = true,
+}: SidebarGroupProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(true);
 
   return (
     <div>
-      <button className="py-4 flex justify-between items-center w-full" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+      <button
+        className="py-4 flex justify-between items-center w-full"
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+      >
         <div className="flex gap-3 text-sm">
           <div>{icon}</div>
           <div className="font-medium">{label}</div>
         </div>
-        <IoChevronDownOutline size={20} className={twMerge("origin-center duration-300", isDropdownOpen ? "rotate-0" : "rotate-90")} />
+        <IoChevronDownOutline
+          size={20}
+          className={twMerge(
+            "origin-center duration-300",
+            isDropdownOpen ? "rotate-0" : "rotate-90",
+          )}
+        />
       </button>
       <motion.div
         variants={{

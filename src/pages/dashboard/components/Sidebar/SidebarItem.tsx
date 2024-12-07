@@ -1,7 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -11,8 +9,13 @@ type SidebarItemProps = {
   title: string;
 };
 
-export default function SidebarItem({ href, icon, title = "Title" }: SidebarItemProps) {
-  const pathname = usePathname();
+export default function SidebarItem({
+  href,
+  icon,
+  title = "Title",
+}: SidebarItemProps) {
+  const router = useRouter();
+  const pathname = router.pathname;
 
   let isTabActive = pathname.startsWith(href);
 
@@ -21,7 +24,14 @@ export default function SidebarItem({ href, icon, title = "Title" }: SidebarItem
   }
 
   return (
-    <Link href={href} className={twMerge("flex items-center gap-3 py-3 text-sm", isTabActive && "bg-primary-50 dark:bg-primary-800/50 text-primary-700 dark:text-primary-400 rounded-xl px-5")}>
+    <Link
+      href={href}
+      className={twMerge(
+        "flex items-center gap-3 py-3 text-sm",
+        isTabActive &&
+          "bg-primary-50 dark:bg-primary-800/50 text-primary-700 dark:text-primary-400 rounded-xl px-5",
+      )}
+    >
       {icon}
       <span className="font-medium">{title}</span>
     </Link>

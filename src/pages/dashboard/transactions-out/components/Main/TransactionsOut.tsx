@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import useSWR from "swr";
 import TransactionsOutTable from "../Table/TransactionsOutTable";

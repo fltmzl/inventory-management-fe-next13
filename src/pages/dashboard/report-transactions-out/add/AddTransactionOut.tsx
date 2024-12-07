@@ -1,10 +1,8 @@
-"use client";
-
 import React from "react";
 import MainLayout from "../../components/Layout/MainLayout";
 import TransactionOutForm from "../components/Form/TransactionOutForm";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
 import { api } from "@/utils/axios";
 import { TransactionOutBody } from "../components/Form/transactionOutBody";
@@ -20,7 +18,10 @@ export type ItemsProps = {
   total: number;
 };
 
-export default function AddTransactionOut({ inventoryItems, itemRequestItems }: AddTransactionOutProps) {
+export default function AddTransactionOut({
+  inventoryItems,
+  itemRequestItems,
+}: AddTransactionOutProps) {
   const { mutate } = useSWRConfig();
   const router = useRouter();
 

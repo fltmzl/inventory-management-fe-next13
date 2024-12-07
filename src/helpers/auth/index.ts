@@ -6,7 +6,6 @@ const TOKEN_KEY_NAME = "access_token";
 export const getAccessToken = () => {
   // const token = typeof window !== "undefined" ? localStorage.getItem(TOKEN_KEY_NAME) : null;
   const token = getCookie(TOKEN_KEY_NAME);
-  console.log({ token });
   return token;
 };
 
@@ -22,6 +21,10 @@ export const getUserFromToken = (): User | null => {
   const payload = token.split(".")[1];
 
   return JSON.parse(atob(payload));
+};
+
+export const removeAccessToken = () => {
+  setCookie(TOKEN_KEY_NAME, "", { maxAge: -1 });
 };
 
 export const getProfile = async (): Promise<User | null> => {

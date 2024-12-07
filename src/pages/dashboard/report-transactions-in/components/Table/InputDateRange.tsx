@@ -1,10 +1,12 @@
-"use client";
-
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
-import { DateRangePicker } from "react-date-range";
-import { ISODateToLocal, convertToLocaleDateString, setTimeToEndOfDay } from "@/utils/dateTime";
+import { DateRangePicker, Range } from "react-date-range";
+import {
+  ISODateToLocal,
+  convertToLocaleDateString,
+  setTimeToEndOfDay,
+} from "@/utils/dateTime";
 import { addDays } from "date-fns";
 import { Button, Input } from "@nextui-org/react";
 import { IoCalendar } from "react-icons/io5";
@@ -14,6 +16,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 import { formatArrayOfItemToString } from "@/utils/formatArray";
+import { convertImageToBase64 } from "@/utils/image";
 
 type InputDateRangeProps = {
   dateRange: {
@@ -24,8 +27,12 @@ type InputDateRangeProps = {
   transactions: TransactionIn[];
 };
 
-export default function InputDateRange({ setDateRange, dateRange, transactions }: InputDateRangeProps) {
-  const [date, setDate] = useState([
+export default function InputDateRange({
+  setDateRange,
+  dateRange,
+  transactions,
+}: InputDateRangeProps) {
+  const [date, setDate] = useState<Range[]>([
     {
       startDate: new Date(dateRange.from),
       // endDate: setTimeToEndOfDay(new Date(dateRange.to)),
@@ -48,10 +55,14 @@ export default function InputDateRange({ setDateRange, dateRange, transactions }
       e.stopPropagation();
     };
 
-    document.querySelector(".rdrMonthAndYearPickers")?.addEventListener("click", handleMonthClick);
+    document
+      .querySelector(".rdrMonthAndYearPickers")
+      ?.addEventListener("click", handleMonthClick);
 
     return () => {
-      document.querySelector(".rdrMonthAndYearPickers")?.removeEventListener("click", handleMonthClick);
+      document
+        .querySelector(".rdrMonthAndYearPickers")
+        ?.removeEventListener("click", handleMonthClick);
     };
   }, [isDatePickerOpened]);
 
@@ -63,26 +74,62 @@ export default function InputDateRange({ setDateRange, dateRange, transactions }
     }, 200);
   };
 
-  const handlerExportPdf = () => {
+  const handlerExportPdf = async () => {
     const doc = new jsPDF();
 
     const mappedTransactions = transactions.map((transaction) => {
-      return [transaction.id, transaction.nomorLot!.kode, ISODateToLocal(transaction.tanggal), formatArrayOfItemToString(transaction.barang), `Rp${formatToRupiah(Number(transaction.hargaTotal))}`];
+      return [
+        transaction.id,
+        transaction.nomorLot!.kode,
+        ISODateToLocal(transaction.tanggal),
+        formatArrayOfItemToString(transaction.barang),
+        `Rp${formatToRupiah(Number(transaction.hargaTotal))}`,
+      ];
     });
 
-    doc.text("Banu Jaya", 15, 15);
+    const imageBase64 = await convertImageToBase64("/assets/logo/banujaya.png");
+    doc.addImage(imageBase64, "PNG", 15, 10, 15, 15);
+
+    doc.setFontSize(14);
+    doc.text("CV. Banu Jaya", 32, 17);
+    doc.setFontSize(10);
+    doc.text("Jl. Supriyadi, Griya Raharja No. 12", 32, 22);
+
     doc.setFontSize(18);
-    doc.text("Laporan Transaksi Masuk", 70, 25);
+    doc.text("Laporan Transaksi Masuk", 70, 34);
 
     doc.setFontSize(10);
-    doc.text(`Tanggal Transaksi:   ${convertToLocaleDateString(date[0].startDate, "short")} - ${convertToLocaleDateString(date[0].endDate, "short")}`, 15, 40);
+    doc.text(
+      `Periode Laporan:   ${convertToLocaleDateString(date[0].startDate, "short")} - ${convertToLocaleDateString(date[0].endDate, "short")}`,
+      15,
+      43,
+    );
 
     autoTable(doc, {
       margin: {
         top: 45,
       },
       head: [["ID Transaksi", "Nomor LOT", "Tanggal", "Barang", "Harga Total"]],
-      body: mappedTransactions.length ? mappedTransactions : [[{ colSpan: 5, content: "Data Transaksi tidak ada", styles: { halign: "center" } }]],
+      body: mappedTransactions.length
+        ? mappedTransactions
+        : [
+            [
+              {
+                colSpan: 5,
+                content: "Data Transaksi tidak ada",
+                styles: { halign: "center" },
+              },
+            ],
+          ],
+      foot: [
+        [
+          "Total",
+          "",
+          "",
+          "",
+          `Rp${formatToRupiah(Number(transactions.reduce((total, transaction) => total + Number(transaction.hargaTotal), 0)))}`,
+        ],
+      ],
     });
 
     doc.output("dataurlnewwindow");
@@ -96,7 +143,7 @@ export default function InputDateRange({ setDateRange, dateRange, transactions }
             className="w-full"
             size="md"
             type="text"
-            label="Tanggal"
+            label="Periode Laporan"
             labelPlacement="outside"
             placeholder={`  ${convertToLocaleDateString(date[0].startDate)} - ${convertToLocaleDateString(date[0].endDate)}`}
             onFocus={() => {
@@ -105,12 +152,17 @@ export default function InputDateRange({ setDateRange, dateRange, transactions }
             }}
             onBlur={handleDateInputBlur}
             ref={inputDateRef}
-            startContent={<IoCalendar className="text-xl text-default-400 pointer-events-none flex-shrink-0" />}
+            startContent={
+              <IoCalendar className="text-xl text-default-400 pointer-events-none flex-shrink-0" />
+            }
           />
 
           <div
             id="datePickerContainer"
-            className={twMerge("absolute z-20", isDateShown ? "block" : "hidden")}
+            className={twMerge(
+              "absolute z-20",
+              isDateShown ? "block" : "hidden",
+            )}
             onMouseEnter={() => setIsDatePickerHovered(true)}
             onMouseLeave={() => setIsDatePickerHovered(false)}
             onClick={() => {
@@ -135,8 +187,8 @@ export default function InputDateRange({ setDateRange, dateRange, transactions }
             className="font-semibold"
             onClick={() => {
               setDateRange({
-                from: +date[0].startDate,
-                to: +date[0].endDate,
+                from: Number(date[0].startDate),
+                to: Number(date[0].endDate),
               });
             }}
           >
@@ -146,7 +198,13 @@ export default function InputDateRange({ setDateRange, dateRange, transactions }
       </div>
 
       <div>
-        <Button onClick={handlerExportPdf} color="primary" variant="bordered" className="font-semibold" startContent={<TbReportAnalytics size={20} />}>
+        <Button
+          onClick={handlerExportPdf}
+          color="primary"
+          variant="bordered"
+          className="font-semibold"
+          startContent={<TbReportAnalytics size={20} />}
+        >
           Export
         </Button>
       </div>

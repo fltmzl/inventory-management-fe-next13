@@ -66,6 +66,7 @@ export default function TransactionsInTable({
         onClose();
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mutate],
   );
 
@@ -107,6 +108,7 @@ export default function TransactionsInTable({
           return <DefaultCell value={cellValue as string} />;
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [onDeleteItem],
   );
 
@@ -137,7 +139,7 @@ export default function TransactionsInTable({
                 inputWrapper: "py-0 h-full",
               }}
               size="sm"
-              placeholder="Cari berdasarkan nama"
+              placeholder="Cari berdasarkan nomor lot"
               startContent={<FiSearch />}
               value={table.filterValue}
               onClear={() => table.onClear()}
