@@ -29,7 +29,7 @@ export default function UnitsTable({ units }: UnitsTableProps) {
     initialVisibleColumns: INITIAL_VISIBLE_COLUMNS,
   });
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [itemToBeDeleted, setItemToBeDeleted] = useState("");
 
   const onOpenDeleteDialog = (id: string) => {
@@ -45,11 +45,13 @@ export default function UnitsTable({ units }: UnitsTableProps) {
         mutate("/satuan");
 
         toast.success("Satuan berhasil dihapus");
+        onClose();
       } catch (err) {
         console.log(err);
         toast.error("Gagal menghapus satuan");
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mutate],
   );
 

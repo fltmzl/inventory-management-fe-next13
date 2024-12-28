@@ -12,9 +12,10 @@ import {
 import { InputGroupType } from "@/typings/inputType";
 import useSWR from "swr";
 import { InventoryBody } from "@/types/inventoryBody";
+import { IdGenerator } from "@/utils/core/idGenerator";
 
 const initialForm: InventoryBody = {
-  id: "",
+  id: IdGenerator.itemId(),
   name: "",
   stock: 0,
   price: 0,

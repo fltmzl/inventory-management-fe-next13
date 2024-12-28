@@ -47,7 +47,7 @@ export default function UserTable({ users }: UserTableProps) {
     data: users,
     initialVisibleColumns: INITIAL_VISIBLE_COLUMNS,
   });
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [itemToBeDeleted, setItemToBeDeleted] = useState("");
 
   const onOpenDeleteDialog = (id: string) => {
@@ -62,6 +62,7 @@ export default function UserTable({ users }: UserTableProps) {
       mutate("/pegawai");
 
       toast.success("Data karyawan berhasil dihapus");
+      onClose();
     } catch (err) {
       console.log(err);
       toast.error("Gagal menghapus data");

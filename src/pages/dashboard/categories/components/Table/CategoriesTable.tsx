@@ -28,7 +28,7 @@ export default function CategoriesTable({ categories }: CategoriesTableProps) {
     data: categories,
     initialVisibleColumns: INITIAL_VISIBLE_COLUMNS,
   });
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [itemToBeDeleted, setItemToBeDeleted] = useState("");
 
   const onOpenDeleteDialog = (id: string) => {
@@ -44,11 +44,13 @@ export default function CategoriesTable({ categories }: CategoriesTableProps) {
         mutate("/kategori");
 
         toast.success("Kategori berhasil dihapus");
+        onClose();
       } catch (err) {
         console.log(err);
         toast.error("Gagal menghapus kategori");
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mutate],
   );
 

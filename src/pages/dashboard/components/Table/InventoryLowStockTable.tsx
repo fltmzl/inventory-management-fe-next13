@@ -52,7 +52,7 @@ export default function InventoryLowStockTable({
     initialVisibleColumns: INITIAL_VISIBLE_COLUMNS,
     initialRowsPerPage: 50,
   });
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [itemToBeDeleted, setItemToBeDeleted] = useState("");
 
   const onOpenDeleteDialog = (id: string) => {
@@ -68,11 +68,13 @@ export default function InventoryLowStockTable({
         mutate("/barang");
 
         toast.success("Barang berhasil dihapus");
+        onClose();
       } catch (err) {
         console.log(err);
         toast.error("Gagal menghapus barang");
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mutate],
   );
 

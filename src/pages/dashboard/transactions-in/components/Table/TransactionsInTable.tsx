@@ -58,11 +58,10 @@ export default function TransactionsInTable({
         mutate("/transaksi-barang-masuk");
 
         toast.success("transaksi barang masuk berhasil dihapus");
+        onClose();
       } catch (err) {
         console.log(err);
         toast.error("Gagal menghapus transaksi");
-      } finally {
-        onClose();
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

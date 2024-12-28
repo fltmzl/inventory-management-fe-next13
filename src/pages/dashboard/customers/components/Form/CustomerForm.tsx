@@ -1,11 +1,12 @@
 import { CustomerBody } from "@/types/customerBody";
 import { InputGroupType } from "@/typings/inputType";
+import { IdGenerator } from "@/utils/core/idGenerator";
 import { Button, Input, Link, Spinner } from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";
 import * as Yup from "yup";
 
 const initialForm: CustomerBody = {
-  id: "",
+  id: IdGenerator.customerId(),
   name: "",
   phoneNumber: "",
   email: "",

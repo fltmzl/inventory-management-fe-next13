@@ -34,7 +34,7 @@ export default function CustomerTable({ customers }: CustomerTableProps) {
     data: customers,
     initialVisibleColumns: INITIAL_VISIBLE_COLUMNS,
   });
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [itemToBeDeleted, setItemToBeDeleted] = useState("");
 
   const onOpenDeleteDialog = (id: string) => {
@@ -50,11 +50,13 @@ export default function CustomerTable({ customers }: CustomerTableProps) {
         mutate("/pelanggan");
 
         toast.success("Data pelanggan berhasil dihapus");
+        onClose();
       } catch (err) {
         console.log(err);
         toast.error("Gagal menghapus data");
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mutate],
   );
 

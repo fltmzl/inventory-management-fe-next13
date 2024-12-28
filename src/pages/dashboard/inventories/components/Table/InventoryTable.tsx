@@ -40,7 +40,7 @@ export default function InventoriesTable({
     data: inventories,
     initialVisibleColumns: INITIAL_VISIBLE_COLUMNS,
   });
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [itemToBeDeleted, setItemToBeDeleted] = useState("");
 
   const onOpenDeleteDialog = (id: string) => {
@@ -56,11 +56,13 @@ export default function InventoriesTable({
         mutate("/barang");
 
         toast.success("Barang berhasil dihapus");
+        onClose();
       } catch (err) {
         console.log(err);
         toast.error("Gagal menghapus barang");
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mutate],
   );
 
