@@ -3,8 +3,9 @@ import CustomerForm from "../Form/CustomerForm";
 import { api } from "@/utils/axios";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
-import { CustomerBody } from "../../../../../types/customerBody";
 import useMutateState from "@/hooks/custom/useMutate";
+import SpinnerLoadingTable from "@/shared/components/SpinnerLoadingTable";
+import { CustomerBody } from "@/types/customerBody";
 
 export default function CustomerDetail({ id }: { id: string }) {
   const router = useRouter();
@@ -13,7 +14,7 @@ export default function CustomerDetail({ id }: { id: string }) {
   );
   const { isMutate, setIsMutate } = useMutateState();
 
-  if (isLoading) return <p>loading borrr EDIT.....</p>;
+  if (isLoading) return <SpinnerLoadingTable />;
 
   const customer = data!.data;
 

@@ -3,8 +3,9 @@ import { api } from "@/utils/axios";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import InventoryForm from "../Form/InventoryForm";
-import { InventoryBody } from "../../../../../types/inventoryBody";
 import useMutateState from "@/hooks/custom/useMutate";
+import SpinnerLoadingTable from "@/shared/components/SpinnerLoadingTable";
+import { InventoryBody } from "@/types/inventoryBody";
 
 export default function InventoryDetail({ id }: { id: string }) {
   const router = useRouter();
@@ -13,7 +14,7 @@ export default function InventoryDetail({ id }: { id: string }) {
   );
   const { isMutate, setIsMutate } = useMutateState();
 
-  if (isLoading) return <p>loading borrr EDIT.....</p>;
+  if (isLoading) return <SpinnerLoadingTable />;
 
   const inventory = data!.data;
 

@@ -3,6 +3,7 @@ import useSWR from "swr";
 import InputDateRange from "../Table/InputDateRange";
 import { subDays } from "date-fns";
 import ReportTransactionsOutTable from "../Table/ReportTransactionsOutTable";
+import SpinnerLoadingTable from "@/shared/components/SpinnerLoadingTable";
 
 export default function TransactionsOutReport() {
   const [dateRange, setDateRange] = useState({
@@ -14,7 +15,7 @@ export default function TransactionsOutReport() {
     `/transaksi-barang-keluar/report?from=${dateRange.from}&to=${dateRange.to}`,
   );
 
-  if (isLoading) return <p>Loading borr</p>;
+  if (isLoading) return <SpinnerLoadingTable />;
 
   return (
     <>

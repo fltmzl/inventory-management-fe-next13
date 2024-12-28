@@ -10,11 +10,11 @@ export default function Drawer() {
   const drawer = useAppSelector((state) => state.drawer);
   const dispatch = useAppDispatch();
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
-  const [isMounted, setIsMounted] = useState(false);
+  // const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsMounted(true);
+  // }, []);
 
   const onClickBackdrop = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     dispatch(closeDrawer());
@@ -22,7 +22,7 @@ export default function Drawer() {
     e.stopPropagation();
   };
 
-  if (!isMounted) return null; // Prevent SSR mismatches
+  // if (!isMounted) return null; // Prevent SSR mismatches
 
   return (
     <>
