@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { LuPackagePlus } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
@@ -21,9 +21,10 @@ import {
   ItemRequestsBody,
   ItemRequestsInitialForm,
 } from "@/types/itemRequestsBody";
+import { IdGenerator } from "@/utils/core/idGenerator";
 
 const initialForm: ItemRequestsInitialForm = {
-  id: "",
+  id: IdGenerator.itemRequestId(),
   customer_id: "",
   user_id: "",
   date: "",
@@ -92,6 +93,13 @@ export default function ItemRequestsForm({
     },
   });
 
+  useEffect(() => {
+    if (formType === "EDIT") return;
+
+    formik.values.id = IdGenerator.itemRequestId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formType]);
+
   const isInputError = (
     inputName: keyof FormikErrors<typeof initialValues>,
   ): boolean => {
@@ -139,7 +147,7 @@ export default function ItemRequestsForm({
   return (
     <form onSubmit={formik.handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 gap-9">
-        <div className="space-y-12">
+        <div className="grid gap-5">
           {inputGroup.map((input) => (
             <Input
               key={input.name}
@@ -162,7 +170,7 @@ export default function ItemRequestsForm({
             />
           ))}
 
-          <div>{JSON.stringify(formik.values)}</div>
+          {/* <div>{JSON.stringify(formik.values)}</div> */}
 
           <Autocomplete
             size="lg"
@@ -206,7 +214,7 @@ export default function ItemRequestsForm({
             ))}
           </Autocomplete>
 
-          <div>{JSON.stringify(items, null, 2)}</div>
+          {/* <div>{JSON.stringify(items, null, 2)}</div> */}
 
           <AnimatePresence>
             {items.map((item, index) => (

@@ -1,14 +1,19 @@
 import { useState } from "react";
 import useSWR from "swr";
 import InputDateRange from "../Table/InputDateRange";
-import { subDays } from "date-fns";
+import { subDays, startOfMonth, endOfMonth } from "date-fns";
 import ReportTransactionsInTable from "../Table/ReportTransactionsInTable";
 import SpinnerLoadingTable from "@/shared/components/SpinnerLoadingTable";
 
 export default function TransactionsInReport() {
+  // const [dateRange, setDateRange] = useState({
+  //   from: +subDays(new Date(), 30),
+  //   to: +new Date(),
+  // });
+
   const [dateRange, setDateRange] = useState({
-    from: +subDays(new Date(), 30),
-    to: +new Date(),
+    from: +startOfMonth(new Date()),
+    to: +endOfMonth(new Date()),
   });
 
   const { data, isLoading } = useSWR(

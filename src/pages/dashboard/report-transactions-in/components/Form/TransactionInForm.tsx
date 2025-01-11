@@ -15,7 +15,7 @@ import { twMerge } from "tailwind-merge";
 import { RxCross2 } from "react-icons/rx";
 import { v4 as uuidv4 } from "uuid";
 import * as Yup from "yup";
-import { ItemsProps } from "../../add/AddTransactionOut";
+import { ItemsProps } from "../../add/AddTransactionIn";
 import {
   Item,
   TransactionOutBody,

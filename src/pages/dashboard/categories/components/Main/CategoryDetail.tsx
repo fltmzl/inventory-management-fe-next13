@@ -6,6 +6,7 @@ import { api } from "@/utils/axios";
 import toast from "react-hot-toast";
 import useMutateState from "@/hooks/custom/useMutate";
 import { CategoryBody } from "@/types/categoryBody";
+import SpinnerLoadingTable from "@/shared/components/SpinnerLoadingTable";
 
 type CategoryDetailProps = {
   id: string;
@@ -18,7 +19,7 @@ export default function CategoryDetail({ id }: CategoryDetailProps) {
   );
   const { isMutate, setIsMutate } = useMutateState();
 
-  if (isLoading) return <p>loading kategori edit</p>;
+  if (isLoading) return <SpinnerLoadingTable />;
 
   const category = data!.data;
 

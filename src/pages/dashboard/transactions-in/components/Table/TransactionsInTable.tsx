@@ -80,6 +80,7 @@ export default function TransactionsInTable({
             <DefaultActionCell
               id={transaction.id}
               onOpenDeleteDialog={onOpenDeleteDialog}
+              canEdit={false}
             />
           );
         case "barang":

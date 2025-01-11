@@ -30,7 +30,7 @@ export default function Profile() {
             as="button"
             avatarProps={{
               size: "sm",
-              src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+              src: "/assets/img/profile-300.png",
             }}
             className="transition-transform"
             classNames={{

@@ -17,7 +17,7 @@ export const getServerSideProps = (async (ctx) => {
 
 export default function EditUserPage({ params }: { params: { id: string } }) {
   return (
-    <MainLayout title="Edit Data Karyawan">
+    <MainLayout title="Edit Data Pelanggan">
       <CustomerDetail id={params.id} />
     </MainLayout>
   );

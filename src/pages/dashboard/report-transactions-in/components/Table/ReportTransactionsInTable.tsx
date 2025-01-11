@@ -121,7 +121,7 @@ export default function ReportTransactionsInTable({
       topContent={topContent}
       bottomContent={bottomContent}
       renderCell={renderCell}
-      emptyTableContentMessage="Transaksi barang masuk tidak ditemukan, Silahkan Pilih Periode Laporan yang sesuai, Silahkan Pilih Periode Laporan yang sesuai"
+      emptyTableContentMessage="Transaksi barang masuk tidak ditemukan, Silahkan Pilih Periode Laporan yang sesuai"
     />
   );
 }

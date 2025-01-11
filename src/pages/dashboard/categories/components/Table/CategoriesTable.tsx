@@ -131,14 +131,14 @@ export default function CategoriesTable({ categories }: CategoriesTableProps) {
         topContent={topContent}
         bottomContent={bottomContent}
         renderCell={renderCell}
-        emptyTableContentMessage="Barang tidak ditemukan "
+        emptyTableContentMessage="Kategori tidak ditemukan"
       />
 
       <DeleteModal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        title="Hapus Data Barang"
-        desc="Apakah Anda yakin ingin menghapus data barang ini? Data akan dihapus secara permanen"
+        title="Hapus Kategori Barang"
+        desc="Apakah Anda yakin ingin menghapus kategori barang ini? Data akan dihapus secara permanen"
         itemIdToBeDeleted={itemToBeDeleted}
         onDelete={onDeleteItem}
       />

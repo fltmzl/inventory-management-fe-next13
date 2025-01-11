@@ -82,6 +82,7 @@ export default function TransactionsOutTable({
             <DefaultActionCell
               id={transaction.id}
               onOpenDeleteDialog={onOpenDeleteDialog}
+              canEdit={false}
             />
           );
         case "barang":
@@ -92,7 +93,8 @@ export default function TransactionsOutTable({
                   {`${barangItem.nama}   ( ${barangItem.jumlah} ${barangItem.satuan} x Rp${formatToRupiah(Number(barangItem.hargaSatuan))} ) `}
 
                   <span className="font-bold text-primary-500 dark:text-primary-500">
-                    LOT: {barangItem.nomorLot[0].kode}
+                    {/* LOT bisa kosong kalau barang nya dari awal tanpa lewat Transaksi Barang Masuk */}
+                    LOT: {barangItem.nomorLot[0]?.kode || "LOT000000"}
                   </span>
                 </p>
               ))}

@@ -106,6 +106,7 @@ export default function ItemRequestsTable({
           return (
             <DefaultActionCell
               id={itemRequest.id}
+              canEdit={false}
               onOpenDeleteDialog={onOpenDeleteDialog}
             />
           );
@@ -168,7 +169,7 @@ export default function ItemRequestsTable({
         topContent={topContent}
         bottomContent={bottomContent}
         renderCell={renderCell}
-        emptyTableContentMessage="Barang tidak ditemukan "
+        emptyTableContentMessage="Permintaan Barang tidak ditemukan"
       />
 
       <DeleteModal

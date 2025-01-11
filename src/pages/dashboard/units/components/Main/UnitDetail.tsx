@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import UnitForm from "../Form/UnitForm";
 import useMutateState from "@/hooks/custom/useMutate";
 import { CategoryBody } from "@/types/categoryBody";
+import SpinnerLoadingTable from "@/shared/components/SpinnerLoadingTable";
 
 type UnitDetailProps = {
   id: string;
@@ -16,7 +17,7 @@ export default function UnitDetail({ id }: UnitDetailProps) {
   const { data, isLoading } = useSWR<ApiSuccessResponse<Unit>>(`/satuan/${id}`);
   const { isMutate, setIsMutate } = useMutateState();
 
-  if (isLoading) return <p>loading satuan edit</p>;
+  if (isLoading) return <SpinnerLoadingTable />;
 
   const unit = data!.data;
 

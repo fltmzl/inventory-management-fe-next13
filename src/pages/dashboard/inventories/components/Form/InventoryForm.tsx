@@ -75,12 +75,19 @@ export default function InventoryForm({
       id: Yup.string().required("ID Pelanggan harus diisi"),
       name: Yup.string().required("Nama Pelanggan harus diisi"),
       stock: Yup.number(),
-      price: Yup.number().required("Harga harus diisi"),
+      price: Yup.number().required("Harga Jual harus diisi"),
       category_id: Yup.string().required("Kategori harus diisi"),
       unit_id: Yup.string().required("Satuan barang harus diisi"),
     }),
     onSubmit: onSubmit,
   });
+
+  useEffect(() => {
+    if (formType === "EDIT") return;
+
+    formik.values.id = IdGenerator.itemId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formType]);
 
   const isInputError = (
     inputName: keyof FormikErrors<typeof initialValues>,
@@ -109,7 +116,7 @@ export default function InventoryForm({
     },
     {
       name: "price",
-      label: "Harga",
+      label: "Harga Jual (Rp)",
       placeholder: "Harga barang",
       type: "number",
     },
@@ -123,30 +130,30 @@ export default function InventoryForm({
 
   return (
     <form onSubmit={formik.handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 gap-6">
-        <div className="space-y-12">
-          {inputGroup.map((input) => (
-            <Input
-              key={input.name}
-              size="lg"
-              variant="bordered"
-              labelPlacement="outside"
-              placeholder={input.placeholder}
-              radius="sm"
-              type={input.type}
-              label={input.label}
-              id={input.name}
-              name={input.name}
-              value={formik.values[input.name].toString()}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              isInvalid={isInputError(input.name)}
-              errorMessage={
-                isInputError(input.name) ? getInputErrorMessage(input.name) : ""
-              }
-            />
-          ))}
-        </div>
+      <div className="grid grid-cols-2 gap-6">
+        {/* <div className="space-y-12"> */}
+        {inputGroup.map((input) => (
+          <Input
+            key={input.name}
+            size="lg"
+            variant="bordered"
+            labelPlacement="outside"
+            placeholder={input.placeholder}
+            radius="sm"
+            type={input.type}
+            label={input.label}
+            id={input.name}
+            name={input.name}
+            value={formik.values[input.name].toString()}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={isInputError(input.name)}
+            errorMessage={
+              isInputError(input.name) ? getInputErrorMessage(input.name) : ""
+            }
+          />
+        ))}
+        {/* </div> */}
 
         {isLoadingUnits ? (
           <div>Loading satuan</div>

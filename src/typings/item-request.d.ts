@@ -12,7 +12,8 @@ type ItemRequest = {
       nama: string;
       satuan: string;
       jumlah: number;
-    }
+      harga: number;
+    },
   ];
   pegawai: {
     namaLengkap: string;

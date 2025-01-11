@@ -44,7 +44,7 @@ export const getServerSideProps = (async (ctx) => {
   };
 }>;
 
-export default function AddTransactionInPage({
+export default function AddItemRequestPage({
   initialData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   // const initialData = await getInitialData();

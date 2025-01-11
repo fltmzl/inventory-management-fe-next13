@@ -131,7 +131,7 @@ export default function UnitsTable({ units }: UnitsTableProps) {
         topContent={topContent}
         bottomContent={bottomContent}
         renderCell={renderCell}
-        emptyTableContentMessage="Barang tidak ditemukan "
+        emptyTableContentMessage="Satuan Barang tidak ditemukan"
       />
 
       <DeleteModal

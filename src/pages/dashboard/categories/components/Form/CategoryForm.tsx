@@ -1,12 +1,13 @@
 import { CategoryBody } from "@/types/categoryBody";
 import { InputGroupType } from "@/typings/inputType";
+import { IdGenerator } from "@/utils/core/idGenerator";
 import { Button, Input, Link, Spinner } from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
 const initialForm: CategoryBody = {
-  code: "",
+  code: IdGenerator.categoryId(),
   name: "",
 };
 
@@ -32,6 +33,13 @@ export default function CategoryForm({
     }),
     onSubmit: onSubmit,
   });
+
+  React.useEffect(() => {
+    if (formType === "EDIT") return;
+
+    formik.values.code = IdGenerator.categoryId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formType]);
 
   const isInputError = (
     inputName: keyof FormikErrors<typeof initialValues>,

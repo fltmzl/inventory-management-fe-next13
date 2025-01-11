@@ -156,29 +156,29 @@ export default function UserForm({
   return (
     <form onSubmit={formik.handleSubmit} className="space-y-6">
       <div className="grid grid-cols-2 gap-9">
-        <div className="space-y-12">
-          {inputGroup1.map((input) => (
-            <Input
-              key={input.name}
-              size="lg"
-              variant="bordered"
-              labelPlacement="outside"
-              placeholder={input.placeholder}
-              radius="sm"
-              type={input.type}
-              label={input.label}
-              id={input.name}
-              name={input.name}
-              value={formik.values[input.name]}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              isInvalid={isInputError(input.name)}
-              errorMessage={
-                isInputError(input.name) ? getInputErrorMessage(input.name) : ""
-              }
-            />
-          ))}
-        </div>
+        {/* <div className="space-y-12"> */}
+        {inputGroup1.map((input) => (
+          <Input
+            key={input.name}
+            size="lg"
+            variant="bordered"
+            labelPlacement="outside"
+            placeholder={input.placeholder}
+            radius="sm"
+            type={input.type}
+            label={input.label}
+            id={input.name}
+            name={input.name}
+            value={formik.values[input.name]}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={isInputError(input.name)}
+            errorMessage={
+              isInputError(input.name) ? getInputErrorMessage(input.name) : ""
+            }
+          />
+        ))}
+        {/* </div> */}
       </div>
 
       <div className="grid grid-cols-2 gap-9">

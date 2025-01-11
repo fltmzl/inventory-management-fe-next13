@@ -13,7 +13,7 @@ import {
 } from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { LuPackagePlus } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuidv4 } from "uuid";
@@ -25,6 +25,9 @@ import {
   TransactionInInitialForm,
 } from "@/types/transactionInBody";
 import { formatToRupiah } from "@/utils/formatToRupiah";
+import { IdGenerator } from "@/utils/core/idGenerator";
+import useSWR from "swr";
+import { getInputDateTimeLocal } from "@/utils/dateTime";
 
 const initialForm: TransactionInInitialForm = {
   id: "",
@@ -60,6 +63,9 @@ export default function TransactionInForm({
   onSubmit,
   isMutate,
 }: TransactionInFormProps) {
+  const { data: lotNumberId, isLoading: isLoadingLotNumberID } = useSWR(
+    "/barang/get-lot-number-id",
+  );
   const [items, setItems] = useState<ItemList[]>([...initialItemValue]);
   const totalPrice = useMemo(() => {
     const total = items.reduce((prev, current) => {
@@ -96,6 +102,16 @@ export default function TransactionInForm({
       onSubmit(values, mappeditems);
     },
   });
+
+  useEffect(() => {
+    formik.values.id = IdGenerator.transactionInId();
+    formik.values.date = getInputDateTimeLocal();
+
+    if (lotNumberId || !isLoadingLotNumberID) {
+      formik.setFieldValue("lotNumber", lotNumberId.data);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lotNumberId, isLoadingLotNumberID]);
 
   const isInputError = (
     inputName: keyof FormikErrors<typeof initialValues>,
@@ -147,10 +163,24 @@ export default function TransactionInForm({
     setItems(newItemsArray);
   };
 
+  const onItemIdChange = (itemId: string, price: number, index: number) => {
+    const newItemsArray = items.map((item, i) => {
+      if (i !== index) return item;
+
+      return {
+        ...item,
+        price,
+        id: itemId,
+      };
+    });
+
+    setItems(newItemsArray);
+  };
+
   return (
     <form onSubmit={formik.handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 gap-9">
-        <div className="space-y-12">
+        <div className="grid gap-5">
           {inputGroup.map((input) => (
             <Input
               key={input.name}
@@ -172,8 +202,7 @@ export default function TransactionInForm({
               }
             />
           ))}
-
-          <div>{JSON.stringify(items, null, 2)}</div>
+          {/* <div>{JSON.stringify(items, null, 2)}</div> */}
 
           <AnimatePresence>
             {items.map((item, index) => (
@@ -207,11 +236,18 @@ export default function TransactionInForm({
                   disabledKeys={items.map((item) => item.id)}
                   className="max-w-xs"
                   onSelectionChange={(value) => {
-                    onItemChange("id", value as string, index);
+                    // onItemChange("id", value as string, index);
+                    if (!value) return;
+
+                    const [itemId, price] = value.toString().split("-");
+                    onItemIdChange(itemId, Number(price), index);
                   }}
                 >
                   {inventoryItems.map((item) => (
-                    <AutocompleteItem key={item.id} value={item.id}>
+                    <AutocompleteItem
+                      key={`${item.id}-${item.harga}`}
+                      value={item.id}
+                    >
                       {`${item.nama} (${item.satuan.nama})`}
                     </AutocompleteItem>
                   ))}
@@ -238,7 +274,7 @@ export default function TransactionInForm({
                   startContent={<RpIcon />}
                   type="number"
                   variant="bordered"
-                  label="Harga"
+                  label="Harga per item"
                   labelPlacement="outside"
                   placeholder="Harga per satuan"
                   value={item.price.toString()}

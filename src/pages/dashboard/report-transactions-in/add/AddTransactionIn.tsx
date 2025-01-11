@@ -18,7 +18,7 @@ export type ItemsProps = {
   total: number;
 };
 
-export default function AddTransactionOut({
+export default function AddTransactionIn({
   inventoryItems,
   itemRequestItems,
 }: AddTransactionOutProps) {
@@ -51,7 +51,7 @@ export default function AddTransactionOut({
   };
 
   return (
-    <MainLayout title="Tambah Transaksi Barang Keluar">
+    <MainLayout title="Tambah Transaksi Barang Masuk">
       <div className="bg-background px-6 py-7 rounded-md">
         <TransactionInForm
           formType="NEW"

@@ -53,3 +53,22 @@ export const convertToLocaleDateString = (
     year: "numeric",
   });
 };
+
+// '2025-01-11T01:01:49.994Z'
+export const getInputDateTimeLocal = () => {
+  const now = new Date();
+
+  // Format tahun, bulan, dan tanggal
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
+  const date = String(now.getDate()).padStart(2, "0");
+
+  // Format jam dan menit
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+
+  // Gabungkan semuanya dalam format "YYYY-MM-DDTHH:mm"
+  return `${year}-${month}-${date}T${hours}:${minutes}`;
+
+  // return new Date().toISOString().slice(0, 16);
+};

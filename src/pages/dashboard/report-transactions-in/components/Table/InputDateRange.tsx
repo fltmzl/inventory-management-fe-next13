@@ -96,7 +96,7 @@ export default function InputDateRange({
     doc.text("Jl. Supriyadi, Griya Raharja No. 12", 32, 22);
 
     doc.setFontSize(18);
-    doc.text("Laporan Transaksi Masuk", 70, 34);
+    doc.text("Laporan Transaksi Barang Masuk", 60, 34);
 
     doc.setFontSize(10);
     doc.text(
@@ -201,7 +201,7 @@ export default function InputDateRange({
         <Button
           onClick={handlerExportPdf}
           color="primary"
-          variant="bordered"
+          variant="shadow"
           className="font-semibold"
           startContent={<TbReportAnalytics size={20} />}
         >

@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { LuPackagePlus } from "react-icons/lu";
 import { twMerge } from "tailwind-merge";
 import { RxCross2 } from "react-icons/rx";
@@ -23,6 +23,7 @@ import {
 } from "@/types/transactionOutBody";
 import { api } from "@/utils/axios";
 import { formatToRupiah } from "@/utils/formatToRupiah";
+import { IdGenerator } from "@/utils/core/idGenerator";
 
 const initialForm: TransactionOutInitialForm = {
   id: "",
@@ -57,6 +58,7 @@ export default function TransactionOutForm({
   onSubmit,
 }: TransactionOutFormProps) {
   const [items, setItems] = useState<ItemList[]>([...initialItemValue]);
+  console.log({ items });
   const totalPrice = useMemo(() => {
     const total = items.reduce((prev, current) => {
       const currentPrice = isNaN(current.price) ? 0 : current.price;
@@ -78,7 +80,7 @@ export default function TransactionOutForm({
     const mappedItems = res.data.data.barang.map((barangItem) => ({
       key: uuidv4(),
       id: barangItem.id,
-      price: 0,
+      price: barangItem.harga,
       total: barangItem.jumlah,
     }));
 
@@ -109,6 +111,11 @@ export default function TransactionOutForm({
       onSubmit(values, mappeditems);
     },
   });
+
+  useEffect(() => {
+    formik.values.id = IdGenerator.transactionOutId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isInputError = (
     inputName: keyof FormikErrors<typeof initialValues>,
@@ -157,7 +164,7 @@ export default function TransactionOutForm({
   return (
     <form onSubmit={formik.handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 gap-9">
-        <div className="space-y-12">
+        <div className="grid gap-5">
           {inputGroup.map((input) => (
             <Input
               key={input.name}
@@ -202,7 +209,7 @@ export default function TransactionOutForm({
             ))}
           </Autocomplete>
 
-          <div>{JSON.stringify(items, null, 2)}</div>
+          {/* <div>{JSON.stringify(items, null, 2)}</div> */}
 
           <AnimatePresence>
             {items.map((item, index) => (

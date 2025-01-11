@@ -138,7 +138,7 @@ export default function CustomerTable({ customers }: CustomerTableProps) {
         topContent={topContent}
         bottomContent={bottomContent}
         renderCell={renderCell}
-        emptyTableContentMessage="Barang tidak ditemukan "
+        emptyTableContentMessage="Pelanggan tidak ditemukan"
       />
 
       <DeleteModal

@@ -163,7 +163,7 @@ export default function UserTable({ users }: UserTableProps) {
         topContent={topContent}
         bottomContent={bottomContent}
         renderCell={renderCell}
-        emptyTableContentMessage="Barang tidak ditemukan "
+        emptyTableContentMessage="User tidak ditemukan"
       />
 
       <DeleteModal

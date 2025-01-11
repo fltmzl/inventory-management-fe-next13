@@ -11,13 +11,21 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdOutlineEdit } from "react-icons/md";
 import { useRouter } from "next/router";
+import { twMerge } from "tailwind-merge";
 
 type Props = {
   id: string;
+  canEdit?: boolean;
+  canDelete?: boolean;
   onOpenDeleteDialog: (id: string) => void;
 };
 
-export default function DefaultActionCell({ id, onOpenDeleteDialog }: Props) {
+export default function DefaultActionCell({
+  id,
+  canEdit = true,
+  canDelete = true,
+  onOpenDeleteDialog,
+}: Props) {
   const router = useRouter();
   const pathname = router.pathname;
 
@@ -38,7 +46,7 @@ export default function DefaultActionCell({ id, onOpenDeleteDialog }: Props) {
             startContent={<MdOutlineEdit />}
             as={Link}
             href={`${pathname}/edit/${id}`}
-            className="text-inherit"
+            className={twMerge("text-inherit", !canEdit && "hidden")}
           >
             Edit
           </DropdownItem>
@@ -47,6 +55,7 @@ export default function DefaultActionCell({ id, onOpenDeleteDialog }: Props) {
             color="danger"
             // onPress={onOpen}
             onClick={() => onOpenDeleteDialog(id)}
+            className={twMerge(!canDelete && "hidden")}
           >
             Delete
           </DropdownItem>

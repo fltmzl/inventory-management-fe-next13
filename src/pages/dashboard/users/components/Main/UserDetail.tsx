@@ -6,13 +6,14 @@ import { useRouter } from "next/router";
 import toast, { Toaster } from "react-hot-toast";
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
+import SpinnerLoadingTable from "@/shared/components/SpinnerLoadingTable";
 
 export default function UserDetail({ id }: { id: string }) {
   const router = useRouter();
   const { data, isLoading } = useSWR(`/pegawai/${id}`);
   const [isMutate, setIsMutate] = useState(false);
 
-  if (isLoading) return <p>loading borrr EDIT.....</p>;
+  if (isLoading) return <SpinnerLoadingTable />;
 
   const initialForm = {
     fullname: data.data.namaLengkap,

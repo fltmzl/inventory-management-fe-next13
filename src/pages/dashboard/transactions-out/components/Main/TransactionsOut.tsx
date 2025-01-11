@@ -4,6 +4,7 @@ import TransactionsOutTable from "../Table/TransactionsOutTable";
 import { DateRangePicker, DateValue, RangeValue } from "@nextui-org/react";
 import { parseDate } from "@internationalized/date";
 import { addDays, convertToDateString, today } from "@/utils/dateTime";
+import SpinnerLoadingTable from "@/shared/components/SpinnerLoadingTable";
 
 export default function TransactionsOut() {
   const { data, isLoading } = useSWR("/transaksi-barang-keluar");
@@ -12,7 +13,7 @@ export default function TransactionsOut() {
     end: parseDate(convertToDateString(addDays(1))),
   });
 
-  if (isLoading) return <p>loading borr</p>;
+  if (isLoading) return <SpinnerLoadingTable />;
 
   return (
     <>
