@@ -1,5 +1,5 @@
+import AddItemRequest from "@/sections/dashboard/item-requests/add/AddItemRequest";
 import { api } from "@/utils/axios";
-import AddItemRequest from "./AddItemRequest";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 const getInitialData = async (): Promise<{

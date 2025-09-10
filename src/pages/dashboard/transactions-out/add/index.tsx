@@ -1,5 +1,5 @@
+import AddTransactionOut from "@/sections/dashboard/transactions-out/add/AddTransactionOut";
 import { api } from "@/utils/axios";
-import AddTransactionOut from "./AddTransactionOut";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 const getInitialData = async () => {

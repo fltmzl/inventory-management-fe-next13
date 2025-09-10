@@ -1,6 +1,6 @@
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
+import TransactionsOutReport from "@/sections/dashboard/report-transactions-out/components/Main/TransactionsOutReport";
 import React from "react";
-import MainLayout from "../components/Layout/MainLayout";
-import TransactionsOutReport from "./components/Main/TransactionsOutReport";
 
 export default function TransactionsOutReportPage() {
   return (

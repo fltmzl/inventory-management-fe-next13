@@ -1,6 +1,6 @@
 import React from "react";
-import MainLayout from "../components/Layout/MainLayout";
-import Units from "./components/Main/Units";
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
+import Units from "@/sections/dashboard/units/components/Main/Units";
 
 export default function UnitsPage() {
   return (

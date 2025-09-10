@@ -1,6 +1,6 @@
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
+import TransactionsIn from "@/sections/dashboard/transactions-in/components/Main/TransactionsIn";
 import React from "react";
-import MainLayout from "../components/Layout/MainLayout";
-import TransactionsIn from "./components/Main/TransactionsIn";
 
 export default function TransactionsInPage() {
   return (

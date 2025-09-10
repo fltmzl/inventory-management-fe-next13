@@ -1,7 +1,7 @@
-import MainLayout from "@/pages/dashboard/components/Layout/MainLayout";
 import React from "react";
-import CustomerDetail from "../../components/Main/CustomerDetail";
 import { GetServerSideProps } from "next";
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
+import CustomerDetail from "@/sections/dashboard/customers/components/Main/CustomerDetail";
 
 export const getServerSideProps = (async (ctx) => {
   const id = ctx.params?.id as string;

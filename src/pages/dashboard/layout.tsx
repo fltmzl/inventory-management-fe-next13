@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Drawer from "./components/Drawer/Drawer";
 import { useAppDispatch, useAppSelector } from "@/redux/redux";
 import { getUserFromToken } from "@/helpers/auth";
 import { login } from "@/redux/features/authSlice";
+import Drawer from "@/sections/dashboard/components/Drawer/Drawer";
 
 export default function DashboardLayout({
   children,

@@ -1,6 +1,6 @@
 import React from "react";
-import MainLayout from "../components/Layout/MainLayout";
-import Users from "./components/Main/Users";
+import Users from "@/sections/dashboard/users/components/Main/Users";
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
 
 export default function UsersPage() {
   return (

@@ -1,12 +1,12 @@
 import React from "react";
-import MainLayout from "../../components/Layout/MainLayout";
-import UserForm from "../components/Form/UserForm";
 import { api } from "@/utils/axios";
-import { UserBody } from "../../../../types/userBody";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { useSWRConfig } from "swr";
 import useMutateState from "@/hooks/custom/useMutate";
+import UserForm from "@/sections/dashboard/users/components/Form/UserForm";
+import { UserBody } from "@/types/userBody";
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
 
 export default function AddUserPage() {
   const { mutate } = useSWRConfig();
@@ -22,7 +22,7 @@ export default function AddUserPage() {
         namaLengkap: fullname,
         username,
         email,
-        foto: "https://i.pravatar.cc/150?img=53",
+        foto: "",
         telepon: phoneNumber,
         password,
         alamat: address,

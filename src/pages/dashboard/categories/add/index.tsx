@@ -1,12 +1,12 @@
 import React from "react";
-import MainLayout from "../../components/Layout/MainLayout";
-import CategoryForm from "../components/Form/CategoryForm";
 import { useSWRConfig } from "swr";
 import { useRouter } from "next/router";
 import { api } from "@/utils/axios";
 import toast from "react-hot-toast";
 import useMutateState from "@/hooks/custom/useMutate";
 import { CategoryBody } from "@/types/categoryBody";
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
+import CategoryForm from "@/sections/dashboard/categories/components/Form/CategoryForm";
 
 export default function AddCategoryPage() {
   const { mutate } = useSWRConfig();

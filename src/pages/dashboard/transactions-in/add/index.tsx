@@ -1,5 +1,5 @@
+import AddTransactionIn from "@/sections/dashboard/transactions-in/add/AddTransactionIn";
 import { api } from "@/utils/axios";
-import AddTransactionIn from "./AddTransactionIn";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 const getInventoryItems = async () => {

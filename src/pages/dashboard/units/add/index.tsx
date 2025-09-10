@@ -1,12 +1,12 @@
 import React from "react";
-import MainLayout from "../../components/Layout/MainLayout";
 import { useSWRConfig } from "swr";
 import { useRouter } from "next/router";
 import { api } from "@/utils/axios";
 import toast from "react-hot-toast";
-import UnitForm from "../components/Form/UnitForm";
 import useMutateState from "@/hooks/custom/useMutate";
 import { CategoryBody } from "@/types/categoryBody";
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
+import UnitForm from "@/sections/dashboard/units/components/Form/UnitForm";
 
 export default function AddUnitPage() {
   const { mutate } = useSWRConfig();

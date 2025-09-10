@@ -1,6 +1,6 @@
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
+import Customers from "@/sections/dashboard/customers/components/Main/Customers";
 import React from "react";
-import MainLayout from "../components/Layout/MainLayout";
-import Customers from "./components/Main/Customers";
 
 export default function CustomersPage() {
   return (

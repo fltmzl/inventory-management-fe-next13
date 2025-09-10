@@ -1,6 +1,5 @@
-import MainLayout from "@/pages/dashboard/components/Layout/MainLayout";
-import React from "react";
-import UnitDetail from "../../components/Main/UnitDetail";
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
+import UnitDetail from "@/sections/dashboard/units/components/Main/UnitDetail";
 import { GetServerSideProps } from "next";
 
 export const getServerSideProps = (async (ctx) => {

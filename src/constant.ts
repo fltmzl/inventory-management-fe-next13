@@ -1,3 +1,3 @@
 export const constant = {
-  SHOW_ROWS_LIST: [1, 5, 10, 50, 100],
+  SHOW_ROWS_LIST: [50, 100, 300, 500, 1000],
 };

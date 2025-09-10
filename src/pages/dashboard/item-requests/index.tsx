@@ -1,6 +1,6 @@
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
+import ItemRequests from "@/sections/dashboard/item-requests/components/Main/ItemRequests";
 import React from "react";
-import MainLayout from "../components/Layout/MainLayout";
-import ItemRequests from "./components/Main/ItemRequests";
 
 export default function ItemRequestsPage() {
   return (

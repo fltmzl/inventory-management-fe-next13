@@ -55,8 +55,8 @@ export const convertToLocaleDateString = (
 };
 
 // '2025-01-11T01:01:49.994Z'
-export const getInputDateTimeLocal = () => {
-  const now = new Date();
+export const getInputDateTimeLocal = (initialDate?: string) => {
+  const now = initialDate ? new Date(initialDate) : new Date();
 
   // Format tahun, bulan, dan tanggal
   const year = now.getFullYear();

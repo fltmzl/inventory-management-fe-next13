@@ -1,14 +1,11 @@
-import React from "react";
-import MainLayout from "./components/Layout/MainLayout";
-import DashboardCard from "./components/DashboardCard";
-import { FaBoxArchive } from "react-icons/fa6";
-import { VscRequestChanges } from "react-icons/vsc";
-import { FaHouseUser } from "react-icons/fa6";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import DashboardCard from "@/sections/dashboard/components/DashboardCard";
+import DashboardLowStock from "@/sections/dashboard/components/DashboardLowStock";
+import DashboardPieChart from "@/sections/dashboard/components/DashboardPieChart";
+import MainLayout from "@/sections/dashboard/components/Layout/MainLayout";
 import { api } from "@/utils/axios";
-import { PieChart, pieArcLabelClasses } from "@mui/x-charts";
-import DashboardPieChart from "./components/DashboardPieChart";
-import DashboardLowStock from "./components/DashboardLowStock";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { FaBoxArchive, FaHouseUser } from "react-icons/fa6";
+import { VscRequestChanges } from "react-icons/vsc";
 
 export const getServerSideProps = (async () => {
   // const dashboardSummary =
