@@ -6,7 +6,6 @@ import { api } from "@/utils/axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { setAccessToken } from "@/helpers/auth";
-import BrandLogo from "@/shared/components/BrandLogo";
 
 export default function LoginPage() {
   const router = useRouter();

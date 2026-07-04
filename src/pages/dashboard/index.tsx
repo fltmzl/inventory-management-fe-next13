@@ -55,12 +55,12 @@ export default function MainPage({
         />
       </div>
 
-      <div className="mt-14 grid xl:grid-cols-2 gap-5">
-        <div>
+      <div className="mt-14 flex flex-col-reverse 2xl:flex-row gap-5">
+        <div className="basis-1/2">
           <DashboardLowStock />
         </div>
 
-        <div>
+        <div className="basis-1/2">
           <DashboardPieChart
             chartData={dashboardBestSelling.map((item) => ({
               id: item.id,

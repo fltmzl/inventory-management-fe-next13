@@ -24,6 +24,7 @@ type useTableProps<T> = {
   data: DataWithNamaProperty<T>[];
   columnToSearch?: any;
   initialRowsPerPage?: number;
+  initialSortDescriptor?: SortDescriptor;
 };
 
 export type HeaderColumn = {
@@ -59,6 +60,7 @@ export default function useTable<T>({
   data,
   columnToSearch = "nama",
   initialRowsPerPage = 50,
+  initialSortDescriptor,
 }: useTableProps<T>): Table<T> {
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
   const [page, setPage] = useState(1);
@@ -68,10 +70,9 @@ export default function useTable<T>({
     new Set(initialVisibleColumns),
   );
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: columnToSearch,
-    direction: "ascending",
-  });
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
+    initialSortDescriptor || {},
+  );
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -107,6 +108,10 @@ export default function useTable<T>({
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = useMemo(() => {
+    if (!sortDescriptor || !sortDescriptor.column) {
+      return items;
+    }
+
     return [...items].sort((a, b) => {
       const first = a[sortDescriptor.column as keyof DataWithNamaProperty<T>];
       const second = b[sortDescriptor.column as keyof DataWithNamaProperty<T>];

@@ -5,8 +5,14 @@ import {
   Button,
   Input,
   Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Spinner,
   Textarea,
+  useDisclosure,
 } from "@nextui-org/react";
 import { FormikErrors, useFormik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
@@ -26,6 +32,7 @@ import { IdGenerator } from "@/utils/core/idGenerator";
 import useCtrlEnter from "@/hooks/custom/useCtrlEnter";
 import Fuse from "fuse.js";
 import useSWR from "swr";
+import { GoAlertFill } from "react-icons/go";
 
 const initialForm: ItemRequestsInitialForm = {
   id: IdGenerator.itemRequestId(),
@@ -79,6 +86,7 @@ export default function ItemRequestsForm({
       price: number | null;
     }[]
   >([]);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -94,17 +102,33 @@ export default function ItemRequestsForm({
       user_id: Yup.string().required("Pegawai harus diisi"),
       date: Yup.date().required("Tanggal transaksi harus diisi"),
     }),
-    onSubmit: (values) => {
-      const mappeditems = items
-        .filter((item) => item.id && item.total)
-        .map((item) => {
-          const { key, ...others } = item;
-          return others;
-        });
-
-      onSubmit(values, mappeditems);
+    onSubmit: () => {
+      onOpen();
     },
+    // onSubmit: (values) => {
+    //   const mappeditems = items
+    //     .filter((item) => item.id && item.total)
+    //     .map((item) => {
+    //       const { key, ...others } = item;
+    //       return others;
+    //     });
+
+    //   onSubmit(values, mappeditems);
+    // },
   });
+
+  const submitForm = () => {
+    const mappeditems = items
+      .filter((item) => item.id && item.total)
+      .map((item) => {
+        const { key, ...others } = item;
+        return others;
+      });
+
+    console.log({ values: formik.values, mappeditems });
+    return;
+    onSubmit(formik.values, mappeditems);
+  };
 
   useEffect(() => {
     if (formType === "EDIT") return;
@@ -372,6 +396,7 @@ export default function ItemRequestsForm({
               type="button"
               color="primary"
               onClick={handleConvertMessage}
+              onKeyUp={(e) => e.key === "Enter" && handleConvertMessage()}
               disabled={!message}
             >
               Convert
@@ -444,6 +469,33 @@ export default function ItemRequestsForm({
             ))}
           </Autocomplete>
 
+          {Boolean(notFoundItemsInInventory.length) && (
+            <div className="py-5 px-6 rounded-lg bg-danger-50 relative overflow-hidden">
+              <div className="absolute w-1.5 h-full top-0 left-0 bg-danger-500"></div>
+              <div className="flex items-center gap-4 text-danger-500">
+                <GoAlertFill size={20} />
+                <div>
+                  <h3 className="font-semibold">
+                    Ada {notFoundItemsInInventory.length} barang tidak ditemukan
+                  </h3>
+                  <span className="text-sm">
+                    Anda bisa mencari dan menambahkan secara manual
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-4 font-medium">
+                <ul>
+                  {notFoundItemsInInventory.map((item, index) => (
+                    <li key={item.item + index}>
+                      {index + 1}. {item.item}, qty: {item.qty}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
           <AnimatePresence>
             {items.map((item, index) => (
               <motion.div
@@ -472,7 +524,7 @@ export default function ItemRequestsForm({
                     isRequired
                     label="Barang"
                     variant="bordered"
-                    labelPlacement="outside"
+                    labelPlacement="inside"
                     placeholder="Pilih Barang"
                     disabledKeys={disabledKeysItems}
                     defaultSelectedKey={item.id}
@@ -503,7 +555,7 @@ export default function ItemRequestsForm({
                     item.total > getTotalStock(inventoryItems, item)
                   }
                   label="Jumlah"
-                  labelPlacement="outside"
+                  labelPlacement="inside"
                   placeholder="Total Barang"
                   className="max-w-xs"
                   value={item.total.toString()}
@@ -517,10 +569,7 @@ export default function ItemRequestsForm({
                   onPress={() => {
                     setItems(items.filter((item, i) => i !== index));
                   }}
-                  className={twMerge(
-                    "self-end mb-2",
-                    items.length <= 1 && "hidden",
-                  )}
+                  className={twMerge("mt-2", items.length <= 1 && "hidden")}
                 >
                   <RxCross2 />
                 </Button>
@@ -557,6 +606,46 @@ export default function ItemRequestsForm({
           {formType === "NEW" ? "Simpan" : "Edit"}
         </Button>
       </div>
+
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Modal Title
+              </ModalHeader>
+              <ModalBody>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Magna exercitation reprehenderit magna aute tempor cupidatat
+                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
+                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
+                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
+                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
+                  eiusmod et. Culpa deserunt nostrud ad veniam.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={submitForm}>
+                  Action
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </form>
   );
 }
