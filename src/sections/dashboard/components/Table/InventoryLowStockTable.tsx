@@ -85,6 +85,16 @@ export default function InventoryLowStockTable({
       switch (columnKey) {
         case "nama":
           return <DefaultCell className="font-medium" value={inventory.nama} />;
+        case "stok":
+          if (inventory.stok === 0) {
+            return (
+              <DefaultCell
+                className="text-red-500 font-bold bg-red-100/50 dark:bg-red-950/20 px-2.5 py-1 rounded-full w-fit border border-red-200 dark:border-red-900"
+                value="Habis (0)"
+              />
+            );
+          }
+          return <DefaultCell value={inventory.stok} />;
         case "satuan":
           return <DefaultCell value={inventory.satuan} />;
         case "harga":
@@ -138,7 +148,7 @@ export default function InventoryLowStockTable({
       <div className="flex justify-between gap-5">
         <h1 className="text-2xl font-semibold mb-5">Stok Menipis</h1>
 
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-cente">
           <label className="flex items-center text-default-600 text-sm font-semibold">
             Maks Stok
             <select
@@ -205,13 +215,18 @@ export default function InventoryLowStockTable({
 
   return (
     <>
+      {/* <div className="bg-red-500 max-h-[420px] overflow-auto rounded-xl"> */}
       <TableData
         table={table}
         topContent={topContent}
         bottomContent={bottomContent}
         renderCell={renderCell}
+        classNames={{
+          wrapper: "max-h-[420px] overflow-scroll",
+        }}
         emptyTableContentMessage="Barang tidak ditemukan"
       />
+      {/* </div> */}
 
       <DeleteModal
         isOpen={isOpen}

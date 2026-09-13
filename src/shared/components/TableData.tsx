@@ -1,5 +1,6 @@
 import { Table as TableModel } from "@/hooks/custom/useTable";
 import {
+  cn,
   Table,
   TableBody,
   TableCell,
@@ -15,6 +16,9 @@ type Props<TData> = {
   bottomContent: JSX.Element;
   topContent: JSX.Element;
   renderCell: (data: TData, columnKey: React.Key) => JSX.Element;
+  classNames?: {
+    wrapper?: string;
+  };
 };
 
 export default function TableData<TData>({
@@ -23,6 +27,7 @@ export default function TableData<TData>({
   topContent,
   emptyTableContentMessage = "Data tidak ditemukan",
   renderCell,
+  classNames,
 }: Props<TData>) {
   return (
     <Table
@@ -32,7 +37,10 @@ export default function TableData<TData>({
       bottomContentPlacement="outside"
       className="gap-0"
       classNames={{
-        wrapper: "bg-background rounded-b-none shadow-none",
+        wrapper: cn(
+          "bg-background rounded-b-none shadow-none",
+          classNames?.wrapper,
+        ),
         tr: "border-b border-divider last:border-b-0",
       }}
       selectedKeys={table.selectedKeys}

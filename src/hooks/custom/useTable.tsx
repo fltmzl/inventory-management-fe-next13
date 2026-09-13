@@ -85,52 +85,93 @@ export default function useTable<T>({
   }, [columns, visibleColumns]);
 
   const filteredItems = useMemo(() => {
-    let filteredData = [...data];
+    let filteredData = [...(data || [])];
 
     if (hasSearchFilter) {
-      filteredData = filteredData.filter((data) =>
-        data[columnToSearch as "nama"]
+      filteredData = filteredData.filter((item) => {
+        const valueToSearch = item[columnToSearch as "nama"];
+        if (valueToSearch === null || valueToSearch === undefined) return false;
+        return String(valueToSearch)
           .toLowerCase()
-          .includes(filterValue.toLowerCase()),
-      );
+          .includes(filterValue.toLowerCase());
+      });
     }
 
     return filteredData;
   }, [data, filterValue, hasSearchFilter, columnToSearch]);
 
-  const pages = Math.ceil(filteredItems.length / rowsPerPage);
+  const sortedData = useMemo(() => {
+    if (!sortDescriptor || !sortDescriptor.column) {
+      return filteredItems;
+    }
 
-  const items = useMemo(() => {
+    const columnKey = sortDescriptor.column as keyof DataWithNamaProperty<T>;
+
+    return [...filteredItems].sort((a, b) => {
+      const first = a[columnKey];
+      const second = b[columnKey];
+
+      const getComparableValue = (val: any): number | string => {
+        if (val === null || val === undefined) return "";
+        if (val instanceof Date) return val.getTime();
+
+        // Handle nested object seperti pelanggan: { nama: "..." }
+        if (typeof val === "object" && !Array.isArray(val)) {
+          if ("nama" in val && typeof val.nama === "string") {
+            return val.nama.toLowerCase();
+          }
+        }
+
+        // Handle array
+        if (Array.isArray(val)) return val.length;
+
+        // Handle number
+        if (typeof val === "number") return val;
+
+        if (typeof val === "string") {
+          const trimmed = val.trim();
+          // Cek format tanggal ISO (misal "2024-09-13T..." atau "2024-09-13")
+          if (/^\d{4}-\d{2}-\d{2}/.test(trimmed)) {
+            const time = Date.parse(trimmed);
+            if (!isNaN(time)) return time;
+          }
+
+          // Cek string numerik (misal "1500000" atau "250.5")
+          if (trimmed !== "" && !isNaN(Number(trimmed))) {
+            return Number(trimmed);
+          }
+
+          return trimmed.toLowerCase();
+        }
+
+        return String(val).toLowerCase();
+      };
+
+      const firstVal = getComparableValue(first);
+      const secondVal = getComparableValue(second);
+
+      let cmp = 0;
+      if (typeof firstVal === "number" && typeof secondVal === "number") {
+        cmp = firstVal < secondVal ? -1 : firstVal > secondVal ? 1 : 0;
+      } else {
+        cmp = String(firstVal).localeCompare(String(secondVal), undefined, {
+          numeric: true,
+          sensitivity: "base",
+        });
+      }
+
+      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+    });
+  }, [filteredItems, sortDescriptor]);
+
+  const pages = Math.ceil(sortedData.length / rowsPerPage);
+
+  const sortedItems = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
-    return filteredItems.slice(start, end);
-  }, [page, filteredItems, rowsPerPage]);
-
-  const sortedItems = useMemo(() => {
-    if (!sortDescriptor || !sortDescriptor.column) {
-      return items;
-    }
-
-    return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column as keyof DataWithNamaProperty<T>];
-      const second = b[sortDescriptor.column as keyof DataWithNamaProperty<T>];
-      let cmp =
-        (parseInt(first as string) || first) <
-        (parseInt(second as string) || second)
-          ? -1
-          : 1;
-
-      if (sortDescriptor.direction === "descending") {
-        cmp *= -1;
-      }
-
-      return cmp;
-
-      // const cmp = first < second ? -1 : first > second ? 1 : 0;
-      // return sortDescriptor.direction === "descending" ? -cmp : cmp;
-    });
-  }, [sortDescriptor, items]);
+    return sortedData.slice(start, end);
+  }, [page, sortedData, rowsPerPage]);
 
   const onRowsPerPageChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {

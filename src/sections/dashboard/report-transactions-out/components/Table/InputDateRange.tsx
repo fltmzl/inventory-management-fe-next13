@@ -127,7 +127,9 @@ export default function InputDateRange({
       ],
     });
 
-    doc.output("dataurlnewwindow");
+    const blob = doc.output("blob");
+    const blobUrl = URL.createObjectURL(blob);
+    window.open(blobUrl, "_blank");
   };
 
   return (

@@ -10,8 +10,11 @@ import { LuTags } from "react-icons/lu";
 import SidebarGroup from "./SidebarGroup";
 import SidebarItem from "./SidebarItem";
 import Image from "next/image";
+import useSWR from "swr";
 
 export default function Sidebar() {
+  const { data: user } = useSWR<User>("/auth/profile");
+
   return (
     <>
       <div className="flex flex-col shadow-md min-w-72 h-screen bg-background">
@@ -81,23 +84,28 @@ export default function Sidebar() {
             />
           </SidebarGroup>
 
-          <SidebarGroup icon={<TbReportAnalytics size={20} />} label="Laporan">
-            {/* <SidebarItem
+          {user?.role === "OWNER" && (
+            <SidebarGroup
+              icon={<TbReportAnalytics size={20} />}
+              label="Laporan"
+            >
+              {/* <SidebarItem
               href="/dashboard/report-stock"
               icon={<TbReportAnalytics size={20} />}
               title="Laporan Stok"
             /> */}
-            <SidebarItem
-              href="/dashboard/report-transactions-in"
-              icon={<TbReportAnalytics size={20} />}
-              title="Laporan Barang Masuk"
-            />
-            <SidebarItem
-              href="/dashboard/report-transactions-out"
-              icon={<TbReportAnalytics size={20} />}
-              title="Laporan Barang Keluar"
-            />
-          </SidebarGroup>
+              <SidebarItem
+                href="/dashboard/report-transactions-in"
+                icon={<TbReportAnalytics size={20} />}
+                title="Laporan Barang Masuk"
+              />
+              <SidebarItem
+                href="/dashboard/report-transactions-out"
+                icon={<TbReportAnalytics size={20} />}
+                title="Laporan Barang Keluar"
+              />
+            </SidebarGroup>
+          )}
         </div>
       </div>
     </>

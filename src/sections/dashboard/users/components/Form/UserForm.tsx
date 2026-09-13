@@ -131,26 +131,26 @@ export default function UserForm({
       placeholder: "089 9999 9999",
       type: "text",
     },
-    // {
-    //   name: "password",
-    //   label: "Password",
-    //   placeholder: "********",
-    //   type: "password",
-    //   disabled: formType === "EDIT",
-    // },
+    {
+      name: "password",
+      label: "Password",
+      placeholder: "********",
+      type: "password",
+      disabled: formType === "EDIT",
+    },
     {
       name: "address",
       label: "Alamat",
       placeholder: "Jl Mawar Rt Rw",
       type: "text",
     },
-    // {
-    //   name: "confirmPassword",
-    //   label: "Konfirmasi Password",
-    //   placeholder: "********",
-    //   type: "password",
-    //   disabled: formType === "EDIT",
-    // },
+    {
+      name: "confirmPassword",
+      label: "Konfirmasi Password",
+      placeholder: "********",
+      type: "password",
+      disabled: formType === "EDIT",
+    },
   ];
 
   return (

@@ -1,27 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function authMiddleware(request: NextRequest) {
-  let cookie = request.cookies.get("access_token");
-  const res = await fetch(
-    process.env.NEXT_PUBLIC_API_BASE_URL + "/auth/profile",
-    {
-      headers: {
-        Authorization: `Bearer ${cookie?.value}`,
-      },
-    },
-  );
-  const auth: User = await res.json();
-  const isAuthed = Boolean(auth.id);
-  // console.log({ isAuthed });
+  const token = request.cookies.get("access_token")?.value;
+  let isAuthed = false;
+
+  if (token) {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          cache: "no-store",
+        },
+      );
+
+      if (res.ok) {
+        const auth: User = await res.json();
+        isAuthed = Boolean(auth?.id);
+      }
+    } catch (error) {
+      isAuthed = false;
+    }
+  }
 
   if (request.nextUrl.pathname.startsWith("/auth")) {
-    // console.log("MIDDLEWARE AUTH");
     if (isAuthed)
       return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   if (request.nextUrl.pathname.startsWith("/dashboard")) {
-    // console.log("MIDDLEWARE DASHBOARD");
     if (!isAuthed)
       return NextResponse.redirect(new URL("/auth/login", request.url));
   }

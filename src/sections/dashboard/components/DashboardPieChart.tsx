@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@/hooks/custom/useMediaQuery";
 import { PieChart, PieValueType, pieArcLabelClasses } from "@mui/x-charts";
 import { MakeOptional } from "@mui/x-charts/internals";
 import React from "react";
@@ -7,6 +8,8 @@ type Props = {
 };
 
 export default function DashboardPieChart({ chartData }: Props) {
+  const isMobile = useMediaQuery("(max-width: 767px)");
+
   return (
     <>
       <h1 className="text-2xl font-semibold mb-5">
@@ -18,23 +21,36 @@ export default function DashboardPieChart({ chartData }: Props) {
             {
               data: chartData,
               arcLabel: (item) => `${item.value}`,
-              arcLabelMinAngle: 35,
-              innerRadius: 32,
-              outerRadius: 110,
+              arcLabelMinAngle: 15,
+              innerRadius: 40,
+              outerRadius: 130,
               paddingAngle: 3,
               cornerRadius: 5,
               startAngle: 0,
               endAngle: 360,
               highlightScope: { fade: "global", highlight: "item" },
-              cx: "35%",
+              cx: isMobile ? "50%" : "30%",
             },
           ]}
           sx={{
             [`& .${pieArcLabelClasses.root}`]: {
               fontWeight: "bold",
+              fill: "#fff",
             },
           }}
-          height={300}
+          slotProps={{
+            legend: {
+              direction: isMobile ? "row" : "column",
+              position: {
+                vertical: isMobile ? "bottom" : "middle",
+                horizontal: isMobile ? "middle" : "right",
+              },
+              labelStyle: {
+                fontSize: 12,
+              },
+            },
+          }}
+          height={isMobile ? 420 : 320}
         />
       </div>
     </>

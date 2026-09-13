@@ -17,13 +17,13 @@ export default function DashboardCard({
   return (
     <div
       className={twMerge(
-        "py-12 px-10 rounded-2xl bg-background flex justify-between",
+        "py-8 px-8 rounded-2xl bg-background flex justify-between",
         className,
       )}
     >
       <div>
         <h1 className="text-lg font-medium text-gray-100">{title}</h1>
-        <span className="text-5xl font-bold">{value}</span>
+        <span className="text-4xl font-bold">{value}</span>
       </div>
 
       <div className="text-4xl size-20 grid place-content-center bg-background/20 rounded-full">

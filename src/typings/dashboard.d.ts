@@ -2,6 +2,28 @@ type DashboardSummary = {
   totalBarang: number;
   totalPermintaanBarang: number;
   totalPelanggan: number;
+  totalAssetValuation: number;
+  totalPendingRequests: number;
+  totalFulfilledRequests: number;
+};
+
+type DashboardTransactionTrend = {
+  tanggal: string;
+  masuk: number;
+  keluar: number;
+};
+
+type DashboardRecentActivity = {
+  id: string;
+  tipe: "MASUK" | "KELUAR";
+  keterangan: string;
+  tanggal: string;
+  hargaTotal: number;
+};
+
+type DashboardCategoryDistribution = {
+  kategori: string;
+  totalStok: number;
 };
 
 type DashboardBestSelling = {

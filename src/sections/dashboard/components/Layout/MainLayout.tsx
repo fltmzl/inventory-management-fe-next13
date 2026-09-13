@@ -19,7 +19,7 @@ export default function MainLayout({
         <div className="px-4 lg:px-6 py-9">
           <h1 className="text-3xl font-semibold">{title}</h1>
 
-          <div className="mt-12">{children}</div>
+          <div className="mt-10">{children}</div>
         </div>
       </div>
     </DashboardLayout>
