@@ -22,6 +22,8 @@ export default function FilterShowColumn<TData>({
 }: Props<TData>) {
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
+  if (!table || !columns) return null;
+
   return (
     <Dropdown>
       <DropdownTrigger className="flex">

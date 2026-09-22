@@ -7,6 +7,7 @@ type Props<TData> = {
 };
 
 export default function ShowRows<TData>({ table }: Props<TData>) {
+  if (!table) return null;
   const rowsList = constant.SHOW_ROWS_LIST;
 
   return (

@@ -7,7 +7,9 @@ type Props<TData> = {
   table: Table<TData>;
 };
 
-export default function FooterTable<TData>({ totalData, table }: Props<TData>) {
+export default function FooterTable<TData>({ totalData = 0, table }: Props<TData>) {
+  if (!table) return null;
+
   return (
     <div className="py-8 px-8 flex justify-end items-center bg-background rounded-b-large">
       <span className="w-[30%] text-small text-default-400">
@@ -20,8 +22,8 @@ export default function FooterTable<TData>({ totalData, table }: Props<TData>) {
           showControls
           showShadow
           color="primary"
-          page={table.page}
-          total={table.pages}
+          page={table.page || 1}
+          total={table.pages || 1}
           onChange={table.setPage}
         />
       </div>

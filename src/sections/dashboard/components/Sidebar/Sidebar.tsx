@@ -3,8 +3,7 @@ import { RxDashboard } from "react-icons/rx";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { PiUsersThree } from "react-icons/pi";
 import { BsBoxSeam } from "react-icons/bs";
-import { TbWeight } from "react-icons/tb";
-import { TbReportAnalytics } from "react-icons/tb";
+import { TbArrowsDiff, TbReportAnalytics, TbWeight } from "react-icons/tb";
 import { IoReceiptOutline } from "react-icons/io5";
 import { LuTags } from "react-icons/lu";
 import SidebarGroup from "./SidebarGroup";
@@ -89,11 +88,11 @@ export default function Sidebar() {
               icon={<TbReportAnalytics size={20} />}
               label="Laporan"
             >
-              {/* <SidebarItem
-              href="/dashboard/report-stock"
-              icon={<TbReportAnalytics size={20} />}
-              title="Laporan Stok"
-            /> */}
+              <SidebarItem
+                href="/dashboard/stock-movement"
+                icon={<TbArrowsDiff size={20} />}
+                title="Mutasi Stok (Ledger)"
+              />
               <SidebarItem
                 href="/dashboard/report-transactions-in"
                 icon={<TbReportAnalytics size={20} />}
