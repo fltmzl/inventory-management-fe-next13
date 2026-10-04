@@ -1,17 +1,17 @@
-FROM node:20-alpine
+﻿FROM node:20-slim
 
 WORKDIR /app
 
 # Salin file definisi dependensi
 COPY package*.json ./
 
-# Install dependensi aplikasi
-RUN npm install
+# Install seluruh dependensi aplikasi
+RUN npm install --legacy-peer-deps
 
-# Salin seluruh file aplikasi (termasuk file .env)
+# Salin seluruh file aplikasi
 COPY . .
 
-# Build aplikasi Next.js (Next.js otomatis memuat konfigurasi dari file .env)
+# Build aplikasi Next.js
 RUN npm run build
 
 # Expose port Next.js

@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "inventory-management-v13",
   "version": "0.1.0",
   "private": true,
@@ -37,9 +37,7 @@
     "swr": "^2.2.5",
     "tailwind-merge": "^2.5.2",
     "uuid": "^10.0.0",
-    "yup": "^1.4.0"
-  },
-  "devDependencies": {
+    "yup": "^1.4.0",
     "@types/node": "^22.5.0",
     "@types/react": "^18.3.4",
     "@types/react-date-range": "^1.4.9",
