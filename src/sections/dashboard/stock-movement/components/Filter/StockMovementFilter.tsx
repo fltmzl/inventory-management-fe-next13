@@ -103,14 +103,16 @@ export default function StockMovementFilter({
               setSelectedBarangId(val === "ALL" ? "" : val);
             }}
           >
-            <SelectItem key="ALL" value="ALL">
-              Semua Barang
-            </SelectItem>
-            {(barangList?.data || []).map((barang) => (
-              <SelectItem key={barang.id} value={barang.id}>
-                {barang.nama} ({barang.satuan?.nama || "Item"})
-              </SelectItem>
-            ))}
+            {[
+              <SelectItem key="ALL" value="ALL">
+                Semua Barang
+              </SelectItem>,
+              ...(barangList?.data || []).map((barang) => (
+                <SelectItem key={barang.id} value={barang.id}>
+                  {barang.nama} ({barang.satuan?.nama || "Item"})
+                </SelectItem>
+              )),
+            ]}
           </Select>
         </div>
 
